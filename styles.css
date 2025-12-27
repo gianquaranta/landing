@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Base darker gradient + moving soft radial blobs for organic motion */
+#inicio {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, #040812 0%, #071228 50%, #021026 100%);
+  color: #e6eef8;
+}
+
+/* soft moving blobs layer using pseudo-element */
+/* larger, bluer-green blobs and more irregular motion */
+/* slightly larger blobs and continuous smooth motion */
+#inicio::before {
+  content: '';
+  position: absolute;
+  inset: -36%;
+  background-image: radial-gradient(110rem circle at 6% 18%, rgba(12,130,150,0.92), transparent 30%),
+                    radial-gradient(88rem circle at 86% 54%, rgba(12,95,135,0.84), transparent 28%),
+                    radial-gradient(72rem circle at 50% 86%, rgba(18,150,160,0.82), transparent 28%),
+                    radial-gradient(44rem circle at 68% 16%, rgba(60,150,150,0.58), transparent 26%);
+  filter: blur(26px);
+  transform: translate3d(0,0,0);
+  mix-blend-mode: screen;
+    /* much longer and alternate to simulate continuous, multi-directional motion with approach/retreat;
+      use ease-in-out to smooth direction reversals */
+    animation: blobs 60s ease-in-out infinite alternate;
+  pointer-events: none;
+  opacity: 1;
+}
+
+/* stronger bluish-green highlight layer */
+#inicio::after {
+  content: '';
+  position: absolute;
+  inset: -8%;
+  background: radial-gradient(46rem circle at 28% 28%, rgba(40,200,190,0.09), transparent 30%),
+              radial-gradient(34rem circle at 72% 72%, rgba(90,200,220,0.06), transparent 28%);
+  filter: blur(10px);
+  mix-blend-mode: screen;
+  animation: highlightPulse 7s ease-in-out infinite;
+  pointer-events: none;
+  opacity: 1;
+}
+
+@keyframes blobs {
+  0%   { transform: translate(-16%, -10%) rotate(-3deg) scale(0.94); opacity:0.94; }
+ 10%   { transform: translate(9%, -14%) rotate(2deg)  scale(1.06); opacity:0.99; }
+ 20%   { transform: translate(-20%, 10%) rotate(-4deg) scale(0.96); opacity:0.95; }
+ 30%   { transform: translate(14%, 16%) rotate(4deg)  scale(1.08); opacity:0.97; }
+ 40%   { transform: translate(-6%, -18%) rotate(-4deg) scale(0.97); opacity:0.94; }
+ 50%   { transform: translate(18%, 6%) rotate(3deg)  scale(1.04); opacity:0.98; }
+ 60%   { transform: translate(-14%, 14%) rotate(-2.5deg) scale(0.97); opacity:0.95; }
+ 70%   { transform: translate(8%, -8%) rotate(1.5deg)  scale(1.06);  opacity:0.98; }
+ 80%   { transform: translate(-12%, 6%) rotate(-1.5deg) scale(0.98); opacity:0.95; }
+ 90%   { transform: translate(12%, -4%) rotate(2deg)  scale(1.03); opacity:0.98; }
+ 100%  { transform: translate(-16%, -10%) rotate(-3deg) scale(0.94); opacity:0.94; }
+}
+
+@keyframes highlightPulse {
+  0% { opacity: 0.06; transform: scale(1); }
+  50% { opacity: 0.18; transform: scale(1.02); }
+  100% { opacity: 0.06; transform: scale(1); }
+}
+
+/* Language and Nav buttons */
+.nav-button {
+  background: transparent;
+  color: #e6eef8; /* very light gray */
+  font-weight: 600;
+  padding: 0.25rem 0.5rem;
+  position: relative;
+  transition: transform 0.15s ease, color 0.15s ease;
+  text-decoration: none;
+}
+
+.nav-button::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -2px;
+  left: 50%;
+  background-color: #dfefff;
+  transition: all 0.28s cubic-bezier(.2,.8,.2,1);
+}
+
+.nav-button:hover::after, .nav-button.selected::after {
+  width: 100%;
+  left: 0;
+}
+
+.nav-button:hover {
+  transform: scale(1.06);
+}
+
+/* Pixel Glitch animation: short and finite */
+.glitch {
+  animation: pixel-glitch 0.45s steps(2, end) both;
+}
+
+@keyframes pixel-glitch {
+  0% { transform: translate(0); text-shadow: none; opacity: 1; }
+  20% { transform: translate(-4px, -2px); text-shadow: 3px 2px 0 rgba(0,100,255,0.85), -3px -2px 0 rgba(255,60,80,0.85); opacity: .9; }
+  40% { transform: translate(4px, -3px); text-shadow: -3px 2px 0 rgba(0,200,150,0.75), 3px -2px 0 rgba(180,0,200,0.6); opacity: .85; }
+  60% { transform: translate(-2px, 3px); text-shadow: 2px -2px 0 rgba(255,200,0,0.6), -2px 2px 0 rgba(0,150,255,0.6); opacity: .9; }
+  80% { transform: translate(2px, 1px); text-shadow: -2px -1px 0 rgba(255,60,80,0.6), 2px 1px 0 rgba(0,100,255,0.6); opacity: .95; }
+ 100% { transform: translate(0); text-shadow: none; opacity: 1; }
+}
+
+/* small utility to ensure links look consistent */
+a.nav-button { display: inline-block; }

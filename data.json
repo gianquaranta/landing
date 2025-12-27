@@ -1,0 +1,104 @@
+{
+    "es": {
+        "hero_title": "Hola, Soy [Tu Nombre]",
+        "hero_subtitle": "Desarrollador Web Full Stack",
+        "personal_info_title": "Información Personal",
+        "personal_info": {
+            "bio": "Aquí va una breve biografía sobre ti, tus pasiones, y lo que te motiva en el mundo del desarrollo."
+        },
+        "experience_title": "Experiencia Profesional",
+        "experience": [
+            {
+                "position": "Desarrollador Frontend",
+                "company": "Empresa XYZ",
+                "period": "Enero 2020 - Presente",
+                "description": "Descripción de tus responsabilidades y logros en este puesto."
+            },
+            {
+                "position": "Diseñador Web Junior",
+                "company": "Agencia Creativa",
+                "period": "Junio 2018 - Diciembre 2019",
+                "description": "Descripción de tus responsabilidades y logros en este puesto."
+            }
+        ],
+        "projects_title": "Proyectos Personales",
+        "projects": [
+            {
+                "title": "Proyecto Uno",
+                "description": "Una breve descripción de tu proyecto personal, las tecnologías utilizadas y su propósito.",
+                "link": "#"
+            },
+            {
+                "title": "Proyecto Dos",
+                "description": "Una breve descripción de tu proyecto personal, las tecnologías utilizadas y su propósito.",
+                "link": "#"
+            }
+        ],
+        "nav_about": "Sobre Mí",
+        "nav_experience": "Experiencia Profesional",
+        "nav_projects": "Proyectos Personales",
+        "nav_download": "Descargar Curriculum",
+        "nav_contact": "Contactar vía Mail",
+        "download_cv_title": "Descarga mi Currículum",
+        "download_cv_es_button": "CV en Español",
+        "download_cv_en_button": "CV en Inglés",
+        "contact_title": "Contacto",
+        "contact_name": "Nombre",
+        "contact_email": "Email",
+        "contact_message": "Mensaje",
+        "contact_submit": "Enviar"
+    },
+    "en": {
+        "hero_title": "Hi, I'm [Your Name]",
+        "hero_subtitle": "Full Stack Web Developer",
+        "personal_info_title": "Personal Information",
+        "personal_info": {
+            "bio": "Here goes a brief biography about you, your passions, and what motivates you in the world of development."
+        },
+        "experience_title": "Professional Experience",
+        "experience": [
+            {
+                "position": "Frontend Developer",
+                "company": "XYZ Company",
+                "period": "January 2020 - Present",
+                "description": "Description of your responsibilities and achievements in this role."
+            },
+            {
+                "position": "Junior Web Designer",
+                "company": "Creative Agency",
+                "period": "June 2018 - December 2019",
+                "description": "Description of your responsibilities and achievements in this role."
+            }
+        ],
+        "projects_title": "Personal Projects",
+        "projects": [
+            {
+                "title": "Project One",
+                "description": "A brief description of your personal project, the technologies used, and its purpose.",
+                "link": "#"
+            },
+            {
+                "title": "Project Two",
+                "description": "A brief description of your personal project, the technologies used, and its purpose.",
+                "link": "#"
+            }
+        ],
+        "nav_about": "About Me",
+        "nav_experience": "Professional Experience",
+        "nav_projects": "Personal Projects",
+        "nav_download": "Download CV",
+        "nav_contact": "Send me an email",
+        "download_cv_title": "Download my CV",
+        "download_cv_es_button": "CV in Spanish",
+        "download_cv_en_button": "CV in English",
+        "contact_title": "Contact",
+        "contact_name": "Name",
+        "contact_email": "Email",
+        "contact_message": "Message",
+        "contact_submit": "Send"
+    },
+    "cv_links": {
+        "es": "URL_DE_TU_CV_EN_ESPAÑOL",
+        "en": "URL_DE_TU_CV_EN_INGLES"
+    }
+}

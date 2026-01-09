@@ -114,3 +114,363 @@ body {
 
 /* small utility to ensure links look consistent */
 a.nav-button { display: inline-block; }
+
+/* ensure nav is a positioning context for the absolute section-bar */
+header nav { position: relative; }
+
+/* Collapsed hero: don't change the hero container height to avoid layout shifts; only hide its contents */
+/* Keep #inicio full-height so background stays fixed; only animate child elements */
+/* body.collapsed #inicio intentionally left unchanged to avoid layout shifts */
+
+body.collapsed .hero-text {
+  opacity: 0;
+  transform: translateY(-14px);
+  pointer-events: none;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+/* Move hero-nav up and make it look like navbar */
+.hero-nav {
+  transition: margin 0.6s ease, transform 0.6s ease, opacity 0.6s ease;
+}
+
+/* animate individual hero buttons when hiding/showing (short) */
+.hero-nav .nav-button {
+  transition: transform 0.35s ease, opacity 0.35s ease;
+}
+
+body.collapsed .hero-nav {
+  margin-top: 0;
+  transform: translateY(-22px);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Header section bar: hidden by default, slides down when collapsed */
+.section-bar {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  opacity: 0;
+  transform: translateY(-12px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+  pointer-events: none;
+  position: absolute;
+  left: 0;
+  top: 100%;
+  width: 100%;
+  padding: 0.6rem 0.75rem; /* make the second row a bit taller */
+  min-height: 48px;
+  box-sizing: border-box;
+  z-index: 60; /* overlay above hero */
+  background: transparent; /* transparent so hero background shows through */
+}
+
+body.collapsed .section-bar {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* On small screens, make the section bar a horizontal scroller or wrap into a dropdown-like line */
+@media (max-width: 640px) {
+  .section-bar {
+    display: flex;
+    overflow-x: auto;
+    padding: 0.25rem 0.5rem;
+    background: linear-gradient(180deg, rgba(8,20,40,0.2), rgba(8,12,20,0.05));
+    border-radius: 8px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .section-bar a.nav-button { white-space: nowrap; }
+}
+
+/* Hide content sections by default and animate their reveal */
+.content-section {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.7s ease, opacity 0.6s ease, padding 0.6s ease;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.content-section.visible {
+  max-height: 2000px; /* big enough */
+  opacity: 1;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+/* When overlaying (collapsed), tone down white backgrounds so hero background shows through */
+/* When overlaying (collapsed), make section backgrounds transparent and unify text color */
+/* ONLY applies when NOT handwritten theme */
+body.collapsed:not(.handwritten) #content-root,
+body.collapsed:not(.handwritten) #content-root .content-section {
+  background: transparent !important;
+  color: #e6eef8 !important;
+}
+
+/* Cards inside content sections keep a subtle translucent white background */
+/* ONLY applies when NOT handwritten theme */
+body.collapsed:not(.handwritten) #content-root .content-section .bg-white,
+body.collapsed:not(.handwritten) #content-root .bg-card {
+  background: rgba(255,255,255,0.06) !important;
+  color: #e6eef8 !important;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.22) !important;
+}
+
+/* Forms and their immediate containers stay fully transparent so they blend with hero */
+/* ONLY applies when NOT handwritten theme */
+body.collapsed:not(.handwritten) #content-root form,
+body.collapsed:not(.handwritten) #content-root form .bg-white,
+body.collapsed:not(.handwritten) #content-root form .card {
+  background: transparent !important;
+  color: inherit !important;
+  box-shadow: none !important;
+}
+
+/* Form fields: transparent backgrounds, subtle borders, inherit text color */
+/* ONLY applies when NOT handwritten theme */
+body.collapsed:not(.handwritten) #content-root form,
+body.collapsed:not(.handwritten) #content-root form input,
+body.collapsed:not(.handwritten) #content-root form textarea,
+body.collapsed:not(.handwritten) #content-root form select {
+  background: transparent !important;
+  color: inherit !important;
+  border: 1px solid rgba(230,238,248,0.08) !important;
+}
+
+/* Make links inside overlay readable against the hero background */
+/* ONLY applies when NOT handwritten theme */
+body.collapsed:not(.handwritten) #content-root a {
+  color: #cdeeff !important;
+}
+
+/* Improve visibility for form headings/labels inside the overlay */
+/* ONLY applies when NOT handwritten theme */
+body.collapsed:not(.handwritten) #content-root form h1,
+body.collapsed:not(.handwritten) #content-root form h2,
+body.collapsed:not(.handwritten) #content-root form h3,
+body.collapsed:not(.handwritten) #content-root form label {
+  color: #f0f7ff !important;
+}
+
+/* Disabled form controls styling */
+body.collapsed #content-root form input[disabled],
+body.collapsed #content-root form textarea[disabled],
+body.collapsed #content-root form select[disabled],
+body.collapsed #content-root form button[disabled] {
+  opacity: 0.6 !important;
+  cursor: not-allowed !important;
+}
+
+/* Overlay root for injected partials: hidden by default, shown by toggling class */
+#content-root {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 45;
+  overflow: auto;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  background: transparent;
+}
+
+#content-root.visible-overlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Raise overlay above header when modal is open so modal stacks correctly */
+body.modal-open #content-root {
+  z-index: 999990 !important;
+}
+
+/* Loader for content-root */
+.content-loader {
+  display: none;
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  align-items: center;
+  justify-content: center;
+  z-index: 80;
+  width: 40px;
+  height: 40px;
+}
+.content-loader .spinner {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 3px solid rgba(230,238,248,0.16);
+  border-top-color: rgba(200,235,255,0.9);
+  animation: spin 1s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Toasts */
+.app-toast {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%) translateY(24px);
+  bottom: 24px;
+  background: rgba(10,18,30,0.9);
+  color: #e6eef8;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+  opacity: 0;
+  transition: opacity 0.28s ease, transform 0.28s ease;
+  z-index: 120;
+}
+.app-toast.visible { opacity: 1; transform: translateX(-50%) translateY(0); }
+.app-toast-error { background: rgba(180,30,30,0.95); }
+
+/* Download modal styles */
+.download-modal-wrapper {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999999; /* ensure modal overlays header and all other elements */
+  pointer-events: auto;
+  animation: modal-fade 0.18s ease;
+}
+.download-modal {
+  position: relative;
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 720px;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+.download-modal .modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.72);
+  border: none;
+  z-index: 999998;
+}
+.download-modal .download-card {
+  position: relative;
+  z-index: 999999;
+  background: #071228; /* solid dark background for the popup */
+  color: #e6eef8;
+  padding: 1.5rem 1.25rem;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.55);
+  max-width: 520px;
+  width: 100%;
+  text-align: center;
+  transform: translateY(6px) scale(0.996);
+  animation: modal-pop 0.22s cubic-bezier(.2,.9,.3,1) both;
+}
+
+/* When modal is open, disable pointer events on header and section bar so buttons are behind */
+body.modal-open header,
+body.modal-open #section-bar {
+  pointer-events: none;
+}
+
+@keyframes modal-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes modal-pop {
+  0% { opacity: 0; transform: translateY(12px) scale(0.98); }
+  60% { opacity: 1; transform: translateY(-6px) scale(1.02); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+.cv-button {
+  display: inline-block;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  border: 1px solid rgba(230,238,248,0.18);
+  color: #cfefff;
+  text-decoration: none;
+  background: transparent;
+  transition: background 0.12s ease, transform 0.12s ease;
+}
+.cv-button:hover {
+  background: rgba(255,255,255,0.02);
+  transform: translateY(-2px);
+  border: 2px solid rgba(255,255,255,0.95);
+}
+.cv-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(200,230,255,0.08);
+  border: 2px solid rgba(255,255,255,0.95);
+}
+.cv-close {
+  background: transparent;
+  border: 1px solid rgba(230,238,248,0.12);
+  color: #e6eef8;
+  padding: 0.45rem 0.9rem;
+  border-radius: 6px;
+}
+
+/* Projects list: stacked vertically like other sections */
+/* Projects grid: side-by-side layout with equal widths */
+#projects-content {
+  padding: 0 30px;
+}
+
+/* Responsive: single column on mobile */
+@media (max-width: 768px) {
+  #projects-content {
+    grid-template-columns: 1fr !important;
+    padding: 0 15px !important;
+  }
+}
+
+/* Project cards should stretch to full container width like other section cards */
+.project-card { max-width: none; margin: 0; }
+
+/* Project images with 4:3 aspect ratio */
+.project-card .project-image {
+  aspect-ratio: 4/3;
+  width: 100%;
+  object-fit: cover;
+}
+
+/* Restore text colors: main text white, details very light gray */
+.content-section p,
+.content-section h1,
+.content-section h2,
+.content-section h3,
+.content-section h4,
+.content-section h5,
+.content-section h6 {
+  color: #ffffff;
+}
+.content-section .text-gray-600,
+.content-section .text-gray-700,
+.content-section .text-sm,
+.content-section .text-muted {
+  color: #e6eef8; /* very light gray for details */
+}
+
+/* when collapsed, make hero-nav items smaller to fit as navbar */
+body.collapsed .hero-nav .nav-button {
+  font-size: 0.95rem;
+  padding: 0.2rem 0.6rem;
+}
+
+/* animate individual hero buttons to disappear when collapsing */
+body.collapsed .hero-nav .nav-button {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+/* Hide hero photo (logo) when leaving the inicio (collapsed state) */
+body.collapsed #hero-photo,
+body.collapsed #hero-photo-wrapper {
+  display: none !important;
+}

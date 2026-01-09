@@ -1,0 +1,327 @@
+/* Handwritten / Paper theme
+   - Applies a paper-like background and a pencil/handwritten font look to sections
+   - Preserves existing animations/transitions; only visual appearance changes
+   - Does NOT force paper backgrounds when the page is in collapsed overlay (body.collapsed)
+*/
+
+:root{
+  --paper-bg: #fafafa; /* more neutral paper-like white-gray */
+  --paper-line: rgba(0,0,0,0.03);
+  --pencil-ink: #333333; /* darker gray instead of black */
+  --pencil-ink-soft: rgba(51,51,51,0.55);
+}
+
+/* Handwritten theme only applies when body has class 'handwritten' */
+body.handwritten {
+  font-family: 'Permanent Marker', 'Caveat', 'Patrick Hand', 'Poppins', cursive;
+  color: var(--pencil-ink);
+  font-size: 18px; /* larger base for handwritten style */
+}
+
+body.handwritten:not(.collapsed) {
+  background-color: var(--paper-bg);
+  /* grid paper: vertical + horizontal lines every 20px */
+  background-image:
+    linear-gradient(to right, rgba(0,0,0,0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0,0,0,0.06) 1px, transparent 1px);
+  background-size: 20px 20px, 20px 20px;
+  background-position: 0 0, 0 0;
+}
+
+body.handwritten:not(.collapsed) .content-section {
+  background: linear-gradient(180deg, rgba(255,255,255,0.86), rgba(255,255,255,0.86));
+  border: 1px solid rgba(0,0,0,0.04);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.04);
+  border-radius: 8px;
+}
+
+/* Ensure the hero (#inicio) doesn't keep its original dark gradient when handwritten theme is active */
+body.handwritten #inicio {
+  background: transparent !important;
+}
+
+/* Page title in header - darker text for handwritten theme */
+body.handwritten .page-title {
+  color: var(--pencil-ink) !important;
+  font-weight: bold;
+}
+
+body.handwritten .content-section h1,
+body.handwritten .content-section h2,
+body.handwritten .content-section h3,
+body.handwritten .content-section h4,
+body.handwritten .content-section h5,
+body.handwritten .content-section h6,
+body.handwritten .content-section p,
+body.handwritten .content-section li,
+body.handwritten .content-section a,
+body.handwritten #inicio .hero-text h1,
+body.handwritten #inicio .hero-text p {
+  font-family: 'Caveat', 'Patrick Hand', cursive;
+  color: var(--pencil-ink);
+  /* subtle shadow to emulate pencil texture; reduced intensity for legibility */
+  text-shadow:
+    0.6px 0.6px 0 rgba(0,0,0,0.06),
+    -0.5px 0.5px 0 rgba(0,0,0,0.04);
+  line-height: 1.48;
+}
+
+/* Increase heading sizes in handwritten mode */
+body.handwritten .content-section h1,
+body.handwritten #inicio .hero-text h1 {
+  font-size: 56px; /* larger hero/title */
+}
+body.handwritten .content-section h2 {
+  font-size: 36px;
+}
+body.handwritten .content-section h3 {
+  font-size: 28px;
+}
+body.handwritten .content-section h4 { font-size: 22px; }
+body.handwritten .content-section h5 { font-size: 18px; }
+body.handwritten .content-section h6 { font-size: 16px; }
+
+/* Increase paragraph and list text slightly relative to base */
+body.handwritten .content-section p,
+body.handwritten .content-section li,
+body.handwritten #inicio .hero-text p {
+  font-size: 1.05rem;
+}
+
+body.handwritten .content-section .text-muted,
+body.handwritten .content-section small,
+body.handwritten .content-section .caption,
+body.handwritten .content-section .text-sm {
+  color: var(--pencil-ink-soft) !important;
+  text-shadow: none;
+  font-family: 'Caveat', 'Patrick Hand', cursive;
+  font-size: 15px; /* slightly larger small text for readability */
+}
+
+body.handwritten a { color: #0b4a6f; text-decoration: underline; }
+
+/* Buttons and nav adopt paper look */
+body.handwritten .nav-button,
+body.handwritten .cv-button,
+body.handwritten .cv-close,
+body.handwritten .project-link,
+body.handwritten button {
+  font-family: 'Caveat', 'Patrick Hand', cursive;
+  background: var(--paper-bg);
+  border: 1px solid rgba(0,0,0,0.06);
+  color: var(--pencil-ink);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+  font-size: 20px; /* larger button text to match handwriting style */
+  padding: 0.6rem 1rem;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+/* Hover effect - slight scale up */
+body.handwritten .nav-button:hover,
+body.handwritten .cv-button:hover,
+body.handwritten .cv-close:hover,
+body.handwritten .project-link:hover,
+body.handwritten button:hover {
+  transform: scale(1.08);
+}
+
+/* Active/selected section button - thicker border */
+body.handwritten .nav-button.selected,
+body.handwritten .section-bar .nav-button.selected {
+  border: 3px solid var(--pencil-ink) !important;
+  font-weight: bold;
+}
+
+@media (min-width: 900px) {
+  body.handwritten:not(.collapsed) .container, body.handwritten:not(.collapsed) main {
+    background-image: radial-gradient(circle at 10% 10%, rgba(0,0,0,0.01), transparent 20%), radial-gradient(circle at 90% 90%, rgba(0,0,0,0.01), transparent 18%);
+  }
+}
+
+/* Accessibility: ensure adequate contrast for interactive elements */
+body.handwritten button, body.handwritten input, body.handwritten textarea, body.handwritten select {
+  color: var(--pencil-ink);
+}
+
+/* When collapsed, keep the paper grid visible for partials */
+body.handwritten.collapsed {
+  background-color: var(--paper-bg) !important;
+  background-image:
+    linear-gradient(to right, rgba(0,0,0,0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0,0,0,0.06) 1px, transparent 1px) !important;
+  background-size: 20px 20px, 20px 20px;
+  background-attachment: fixed;
+}
+
+/* Content root and sections transparent so grid shows through */
+body.handwritten.collapsed #content-root {
+  background: transparent !important;
+}
+
+body.handwritten.collapsed .content-section {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: var(--pencil-ink) !important;
+}
+
+/* Cards within sections get solid white background for readability */
+body.handwritten.collapsed .content-section .bg-white,
+body.handwritten.collapsed .bg-card,
+body.handwritten.collapsed #content-root .content-section > div > div {
+  background: #ffffff !important;
+  color: var(--pencil-ink) !important;
+  border: 1px solid rgba(0,0,0,0.1) !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08) !important;
+}
+
+/* Links color in overlay */
+body.handwritten.collapsed #content-root a {
+  color: #0b4a6f !important;
+}
+
+/* Ensure forms and inputs inside collapsed overlay remain readable */
+body.handwritten .content-section form,
+body.handwritten .content-section form .bg-white,
+body.handwritten #contact-form {
+  background: rgba(226, 226, 226, 0.8) !important;
+  border: 1px solid rgba(0,0,0,0.1) !important;
+  color: var(--pencil-ink) !important;
+  padding: 1.5rem !important;
+}
+
+/* Override all label colors including Tailwind classes */
+body.handwritten .content-section label,
+body.handwritten .content-section input,
+body.handwritten .content-section textarea,
+body.handwritten #contact-form label,
+body.handwritten #contact-form .text-gray-700 {
+  color: var(--pencil-ink) !important;
+  font-family: 'Caveat', cursive !important;
+}
+
+body.handwritten .content-section input,
+body.handwritten .content-section textarea {
+  background: #ffffff !important;
+  border: 2px solid rgba(0,0,0,0.2) !important;
+  color: var(--pencil-ink) !important;
+  font-family: 'Caveat', cursive !important;
+  font-size: 18px !important;
+  padding: 0.6rem !important;
+}
+
+body.handwritten #contact-form button,
+body.handwritten .content-section form button {
+  background: transparent !important;
+  border: 2px solid var(--pencil-ink) !important;
+  color: var(--pencil-ink) !important;
+  font-family: 'Caveat', cursive !important;
+  font-size: 20px !important;
+  padding: 0.5rem 1.5rem !important;
+}
+
+/* Contact links styling for handwritten theme */
+body.handwritten #contact-links a,
+body.handwritten #personal-contact-links a {
+  color: var(--pencil-ink) !important;
+  transition: transform 0.2s ease;
+}
+
+body.handwritten #contact-links a:hover,
+body.handwritten #personal-contact-links a:hover {
+  color: #0b4a6f !important;
+  transform: scale(1.1);
+}
+
+body.handwritten #contact-links a span,
+body.handwritten #personal-contact-links a span {
+  font-family: 'Permanent Marker', 'Caveat', cursive !important;
+  font-size: 16px;
+}
+
+/* Stronger overrides for collapsed state - keep form gray and fields white */
+body.handwritten.collapsed #contact-form,
+body.handwritten.collapsed .content-section form {
+  background: rgba(226, 226, 226, 0.8) !important;
+  border: 2px solid rgba(0,0,0,0.15) !important;
+  color: var(--pencil-ink) !important;
+}
+
+body.handwritten.collapsed .content-section h2,
+body.handwritten.collapsed .content-section h3 {
+  color: var(--pencil-ink) !important;
+}
+
+body.handwritten.collapsed .content-section input,
+body.handwritten.collapsed .content-section textarea,
+body.handwritten.collapsed #contact-form input,
+body.handwritten.collapsed #contact-form textarea {
+  background: #ffffff !important;
+  border: 2px solid rgba(0,0,0,0.25) !important;
+  color: var(--pencil-ink) !important;
+}
+
+/* Stronger overrides for contact form labels and placeholders to ensure readability */
+body.handwritten #contact-form label {
+  color: var(--pencil-ink) !important;
+  font-family: 'Caveat', cursive !important;
+  font-size: 18px !important;
+}
+body.handwritten #contact-form input,
+body.handwritten #contact-form textarea {
+  color: var(--pencil-ink) !important;
+  padding: 0.6rem !important;
+}
+body.handwritten #contact-form input::placeholder,
+body.handwritten #contact-form textarea::placeholder {
+  color: rgba(51,51,51,0.45) !important;
+}
+
+/* Modal download styling in handwritten theme: paper-like card and pale buttons with visible borders */
+body.handwritten .download-modal-wrapper {
+  z-index: 999999 !important;
+}
+body.handwritten .download-modal .modal-backdrop {
+  z-index: 999998 !important;
+  background: rgba(0,0,0,0.75) !important;
+}
+body.handwritten .download-modal .download-card {
+  background: var(--paper-bg) !important;
+  color: var(--pencil-ink) !important;
+  border: 2px solid rgba(0,0,0,0.15) !important;
+  box-shadow: 0 12px 36px rgba(0,0,0,0.15) !important;
+  z-index: 999999 !important;
+  font-family: 'Caveat', cursive !important;
+}
+body.handwritten .download-modal h3,
+body.handwritten .download-modal p {
+  color: var(--pencil-ink) !important;
+  font-family: 'Caveat', cursive !important;
+}
+body.handwritten .download-modal .cv-button {
+  background: transparent !important;
+  border: 2px solid var(--pencil-ink) !important;
+  color: var(--pencil-ink) !important;
+  font-family: 'Caveat', cursive !important;
+  font-size: 20px !important;
+  padding: 0.6rem 1.2rem !important;
+}
+body.handwritten .download-modal .cv-button:hover {
+  background: rgba(51,51,51,0.08) !important;
+}
+body.handwritten .download-modal .cv-close {
+  background: transparent !important;
+  border: 2px solid rgba(0,0,0,0.25) !important;
+  color: var(--pencil-ink) !important;
+  font-family: 'Caveat', cursive !important;
+  font-size: 18px !important;
+  padding: 0.5rem 1rem !important;
+}
+body.handwritten .download-modal .cv-close:hover {
+  background: rgba(0,0,0,0.05) !important;
+}
+
+/* Increase subtitle font-size in hero for handwritten mode */
+body.handwritten #inicio .hero-text p {
+  font-size: 28px !important;
+}

@@ -1,86 +1,128 @@
 {
     "es": {
-        "hero_title": "Hola, Soy [Tu Nombre]",
-        "hero_subtitle": "Desarrollador Web Full Stack",
-        "personal_info_title": "Información Personal",
+        "hero_title": "Hola, Soy Gianfranco Quaranta",
+        "hero_subtitle": "Licenciado en Sistemas | Full Stack Developer",
+        "personal_info_title": "Sobre Mí",
         "personal_info": {
-            "bio": "Aquí va una breve biografía sobre ti, tus pasiones, y lo que te motiva en el mundo del desarrollo."
+            "bio": "Buenas! Soy Gian, de La Plata. Siempre me interesó la tecnología y me apasiona la idea de poder construir casi cualquier cosa con software. Tengo facilidad para las matemáticas, soy responsable, proactivo y me gustan los desafíos; prefiero aprender algo nuevo a continuar realizando una tarea que ya conozco."
+        },
+        "education_title": "FORMACIÓN ACADÉMICA",
+        "education": {
+            "degree": "Universidad Nacional de La Plata – Licenciatura en Sistemas",
+            "status": "Finalizado (2020 – 2025)",
+            "gpa": "Promedio: 8.47"
+        },
+        "skills_title": "HABILIDADES",
+        "skills": {
+            "soft_title": "SOFT-SKILLS",
+            "soft": ["Buena comunicación","Liderazgo","Trabajo en equipo","Responsabilidad","Proactividad"],
+            "hard_title": "HARD-SKILLS",
+            "hard": ["Inglés C1","Backend (Java, Python)","Frontend (React, Angular)","GIT","SQL","RPA (BluePrism)"]
         },
         "experience_title": "Experiencia Profesional",
         "experience": [
             {
-                "position": "Desarrollador Frontend",
-                "company": "Empresa XYZ",
-                "period": "Enero 2020 - Presente",
-                "description": "Descripción de tus responsabilidades y logros en este puesto."
+                "position": "Full Stack Dev Trainee",
+                "company": "Ternium",
+                "period": "Mayo 2025 - Actualidad",
+                "description": "Desarrollo de herramientas analíticas, dashboards, SQL Server y construcción de APIs para sistemas externos. Stack: Javascript, .NET, SSMS, Suite de Microsoft."
             },
             {
-                "position": "Diseñador Web Junior",
-                "company": "Agencia Creativa",
-                "period": "Junio 2018 - Diciembre 2019",
-                "description": "Descripción de tus responsabilidades y logros en este puesto."
+                "position": "Practicante de Verano - Sistemas",
+                "company": "Ternium",
+                "period": "Enero 2025 - Marzo 2025",
+                "description": "Pasante en el equipo de Gestión, participación en proyectos internos de BI."
+            },
+            {
+                "position": "Desarrollador RPA",
+                "company": "Enta Consulting",
+                "period": "Febrero 2022 - Junio 2023",
+                "description": "Soporte y monitoreo de procesos automatizados para Pan American Energy y Grupo Falabella mediante BluePrism."
             }
         ],
         "projects_title": "Proyectos Personales",
         "projects": [
             {
-                "title": "Proyecto Uno",
-                "description": "Una breve descripción de tu proyecto personal, las tecnologías utilizadas y su propósito.",
-                "link": "#"
+                "title": "CONTACTAME",
+                "description": "Web App para conectar vecinos con profesionales de servicios y comercios en La Plata. Publicada en https://contactame.com.ar. Desarrollada íntegramente utilizando GCP y Firebase (Firestore, Storage, Hosting, Authentication); Frontend en React con Bootstrap y Backend en Spring con base de datos NoSQL (Firestore), conectados mediante API REST. Cuenta con +180 profesionales registrados, +300 usuarios y un promedio de 100 visitas diarias.",
+                "link": "https://contactame.com.ar",
+                "image": "contactame.png"
             },
             {
-                "title": "Proyecto Dos",
-                "description": "Una breve descripción de tu proyecto personal, las tecnologías utilizadas y su propósito.",
-                "link": "#"
+                "title": "CATÁLOGO ONLINE BONNAT",
+                "description": "Catálogo de pastelería con sistema de pedidos vía WhatsApp. Permite gestionar una lista de productos, generar pedidos automáticos y almacenarlos en base de datos. Incluye un panel de administración para gestión de stock y pedidos. Desarrollado con Next.js, Supabase, Vercel y n8n para la automatización de actualizaciones de precios.",
+                "link": "https://bonnat.com.ar",
+                "image": "bonnat.png"
             }
         ],
         "nav_about": "Sobre Mí",
         "nav_experience": "Experiencia Profesional",
         "nav_projects": "Proyectos Personales",
-        "nav_download": "Descargar Curriculum",
+        "nav_download": "Descargar Currículum",
         "nav_contact": "Contactar vía Mail",
         "download_cv_title": "Descarga mi Currículum",
         "download_cv_es_button": "CV en Español",
         "download_cv_en_button": "CV en Inglés",
-        "contact_title": "Contacto",
+        "contact_title": "Enviame un mail",
         "contact_name": "Nombre",
         "contact_email": "Email",
         "contact_message": "Mensaje",
         "contact_submit": "Enviar"
     },
     "en": {
-        "hero_title": "Hi, I'm [Your Name]",
-        "hero_subtitle": "Full Stack Web Developer",
-        "personal_info_title": "Personal Information",
+        "hero_title": "Hi, I'm Gianfranco Quaranta",
+        "hero_subtitle": "Bachelor in Systems | Full Stack Developer",
+        "personal_info_title": "About Me",
         "personal_info": {
-            "bio": "Here goes a brief biography about you, your passions, and what motivates you in the world of development."
+            "bio": "Hi! This is Gian from Buenos Aires! I have always been interested in technology and I am passionate about the idea of being able to build almost anything with software. I have a facility for mathematics, I am responsible, proactive, and I enjoy challenges; I prefer learning something new over repeating tasks I already master."
+        },
+        "education_title": "EDUCATION",
+        "education": {
+            "degree": "National University of La Plata – Bachelor's Degree in Systems",
+            "status": "Completed (2020 – 2025)",
+            "gpa": "GPA: 8.47"
+        },
+        "skills_title": "SKILLS",
+        "skills": {
+            "soft_title": "SOFT-SKILLS",
+            "soft": ["Good communication","Leadership","Teamwork","Responsibility","Proactivity"],
+            "hard_title": "HARD-SKILLS",
+            "hard": ["English C1","Backend (Java, Python)","Frontend (React, Angular)","GIT","SQL","RPA (BluePrism)"]
         },
         "experience_title": "Professional Experience",
         "experience": [
             {
-                "position": "Frontend Developer",
-                "company": "XYZ Company",
-                "period": "January 2020 - Present",
-                "description": "Description of your responsibilities and achievements in this role."
+                "position": "Full Stack Dev Trainee",
+                "company": "Ternium",
+                "period": "May 2025 - Present",
+                "description": "Development of analytical tools, dashboards, SQL Server, and API construction for external systems. Stack: Javascript, .NET, SSMS, Microsoft Suite."
             },
             {
-                "position": "Junior Web Designer",
-                "company": "Creative Agency",
-                "period": "June 2018 - December 2019",
-                "description": "Description of your responsibilities and achievements in this role."
+                "position": "Summer Intern - IT",
+                "company": "Ternium",
+                "period": "January 2025 - March 2025",
+                "description": "Intern in the Management team, participating in internal BI projects."
+            },
+            {
+                "position": "RPA Developer",
+                "company": "Enta Consulting",
+                "period": "February 2022 - June 2023",
+                "description": "Support and monitoring of automated processes for Pan American Energy and Falabella Group using BluePrism."
             }
         ],
         "projects_title": "Personal Projects",
         "projects": [
             {
-                "title": "Project One",
-                "description": "A brief description of your personal project, the technologies used, and its purpose.",
-                "link": "#"
+                "title": "CONTACTAME",
+                "description": "Web App designed to connect neighbors with service professionals and local businesses in La Plata. Live at https://contactame.com.ar. Built entirely using GCP and Firebase (Firestore, Storage, Hosting, Authentication); Frontend in React with Bootstrap and Backend in Spring with NoSQL database (Firestore), integrated via REST API. +180 registered professionals, +300 users, and an average of 100 daily visits.",
+                "link": "https://contactame.com.ar",
+                "image": "contactame.jpg"
             },
             {
-                "title": "Project Two",
-                "description": "A brief description of your personal project, the technologies used, and its purpose.",
-                "link": "#"
+                "title": "BONNAT ONLINE CATALOG",
+                "description": "Bakery catalog featuring a WhatsApp ordering system. Users can browse products and generate orders that are sent via WhatsApp and recorded in a database. It includes an admin dashboard for product uploads and order management. Built with Next.js, Supabase, Vercel, and n8n for automated price updates.",
+                "link": "https://bonnat.com.ar",
+                "image": "bonnat.jpg"
             }
         ],
         "nav_about": "About Me",
@@ -91,14 +133,36 @@
         "download_cv_title": "Download my CV",
         "download_cv_es_button": "CV in Spanish",
         "download_cv_en_button": "CV in English",
-        "contact_title": "Contact",
+        "contact_title": "Send me a message",
         "contact_name": "Name",
         "contact_email": "Email",
         "contact_message": "Message",
         "contact_submit": "Send"
     },
     "cv_links": {
-        "es": "URL_DE_TU_CV_EN_ESPAÑOL",
-        "en": "URL_DE_TU_CV_EN_INGLES"
-    }
+        "es": "https://docs.google.com/document/d/14Eh6Ah1icYcnaMhOULLHH3KbyR6VtnvAMlpSzXnwh28/export?format=pdf",
+        "en": "https://docs.google.com/document/d/17caWtbOLE4RY-3MAyAmHp1jzlisw7EEd4u8fpgamNkA/export?format=pdf"
+    },
+    "contact_info": {
+        "email": "gianq7@gmail.com",
+        "linkedin": "https://linkedin.com/in/gianfranco-quaranta",
+        "github": "https://github.com/gianquaranta"
+    },
+    "page_title": {
+        "es": "Gianfranco Quaranta - Web Personal",
+        "en": "Gianfranco Quaranta - Personal Website"
+    },
+    "seo": {
+        "title": "Gianfranco Quaranta - Full Stack Developer",
+        "description": "Full Stack Developer especializado en React, Java, Node.js y GCP",
+        "keywords": "full stack developer, react, java, nodejs, gcp, firebase"
+    },
+    "branding": {
+        "favicon": "favicon.ico",
+        "logo": "logo.png"
+    },
+    "default_language": "es",
+    "sections_order": ["informacion", "experiencia", "proyectos", "descarga", "contacto"],
+    "hero_photo": "logo.png",
+    "theme": "default"
 }

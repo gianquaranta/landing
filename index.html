@@ -3,19 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gianfranco Quaranta - Landing Page</title>
+    <title>Gianfranco Quaranta - Full Stack Developer</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="handwritten.css">
+    <!-- Prefetch common partials for snappier navigation -->
+    <link rel="prefetch" href="partials/informacion.html">
+    <link rel="prefetch" href="partials/experiencia.html">
+    <link rel="prefetch" href="partials/proyectos.html">
+    <link rel="prefetch" href="partials/descarga.html">
+    <link rel="prefetch" href="partials/contacto.html">
 </head>
 <body class="bg-gray-100 text-gray-800">
+    <!-- Toasts appended dynamically -->
+    <div id="toast-root" aria-live="polite" style="position:fixed; inset: auto 0 0 0; pointer-events:none; z-index:110"></div>
     <header class="bg-transparent fixed top-0 left-0 right-0 z-50">
         <nav class="container mx-auto px-6 py-4 flex justify-start items-center">
-            <div>
-                <button id="lang-es" class="nav-button selected">ES</button>
-                <button id="lang-en" class="nav-button">EN</button>
+            <div class="w-full">
+                <div class="flex items-center justify-start gap-2 w-full">
+                    <div class="flex items-center gap-2">
+                        <button id="lang-es" class="nav-button selected">ES</button>
+                        <button id="lang-en" class="nav-button">EN</button>
+                    </div>
+                    <span id="page-title" class="page-title hidden text-gray-400 text-sm ml-3">Gianfranco Quaranta - Web Personal</span>
+                </div>
+                <!-- Section bar (empty initially visually, will appear as a separate line under language row when collapsed) -->
+                <div id="section-bar" class="section-bar ml-0 mb-3">
+                    <a href="#informacion" class="nav-button">
+                        <span class="label-es">Sobre Mí</span>
+                        <span class="label-en hidden">About Me</span>
+                    </a>
+                    <a href="#experiencia" class="nav-button">
+                        <span class="label-es">Experiencia Profesional</span>
+                        <span class="label-en hidden">Professional Experience</span>
+                    </a>
+                    <a href="#proyectos" class="nav-button">
+                        <span class="label-es">Proyectos Personales</span>
+                        <span class="label-en hidden">Personal Projects</span>
+                    </a>
+                    <a href="#descarga" class="nav-button">
+                        <span class="label-es">Descargar CV</span>
+                        <span class="label-en hidden">Download CV</span>
+                    </a>
+                    <a href="#contacto" class="nav-button">
+                        <span class="label-es">Contactar vía Mail</span>
+                        <span class="label-en hidden">Contact via Mail</span>
+                    </a>
+                </div>
             </div>
         </nav>
     </header>
@@ -23,15 +63,18 @@
     <main>
         <!-- Hero Section -->
         <section id="inicio" class="h-screen flex flex-col justify-center items-center text-center text-gray-200 px-6">
-            <div id="hero-text-es">
+            <div id="hero-photo-wrapper" class="mb-6">
+                <img id="hero-photo" src="" alt="Foto de Gianfranco" class="rounded-full w-40 h-40 object-cover mx-auto hidden">
+            </div>
+            <div id="hero-text-es" class="hero-text">
                 <h1 class="text-6xl font-bold">¡Hola!</h1>
                 <p class="text-xl mt-4 max-w-4xl">Mi nombre es Gianfranco Quaranta, soy de La Plata, Buenos Aires y soy Licenciado en Sistemas. Te doy la bienvenida a mi web personal, ¿qué te interesa ver?</p>
             </div>
-            <div id="hero-text-en" class="hidden">
+            <div id="hero-text-en" class="hero-text hidden">
                 <h1 class="text-6xl font-bold">Hello there!</h1>
                 <p class="text-xl mt-4 max-w-4xl">My name is Gianfranco Quaranta, I'm from Buenos Aires, Argentina, and I'm a Systems Engineer. Welcome to my personal website, what are you interested in seeing?</p>
             </div>
-            <div class="mt-8 flex flex-wrap justify-center gap-12">
+            <div class="mt-8 flex flex-wrap justify-center gap-12 hero-nav">
                 <a href="#informacion" class="nav-button">
                     <span class="label-es">Sobre Mí</span>
                     <span class="label-en hidden">About Me</span>
@@ -55,68 +98,8 @@
             </div>
         </section>
 
-        <!-- Información Personal -->
-        <section id="informacion" class="py-20 bg-white">
-            <div class="container mx-auto px-6">
-                <h2 class="text-3xl font-bold text-center mb-8" data-key="personal_info_title">Información Personal</h2>
-                <div id="personal-info-content" class="max-w-4xl mx-auto bg-white p-8 rounded-lg">
-                    <!-- Contenido dinámico -->
-                </div>
-            </div>
-        </section>
-
-        <!-- Experiencia Profesional -->
-        <section id="experiencia" class="py-20">
-             <div class="container mx-auto px-6">
-                <h2 class="text-3xl font-bold text-center mb-8" data-key="experience_title">Experiencia Profesional</h2>
-                <div id="experience-content" class="max-w-4xl mx-auto">
-                    <!-- Contenido dinámico -->
-                </div>
-            </div>
-        </section>
-
-        <!-- Proyectos Personales -->
-        <section id="proyectos" class="py-20 bg-white">
-            <div class="container mx-auto px-6">
-                <h2 class="text-3xl font-bold text-center mb-8" data-key="projects_title">Proyectos Personales</h2>
-                <div id="projects-content" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Contenido dinámico -->
-                </div>
-            </div>
-        </section>
-
-        <!-- Descarga de Curriculum -->
-        <section id="descarga" class="py-20 text-center">
-            <div class="container mx-auto px-6">
-                <h2 class="text-3xl font-bold mb-8" data-key="download_cv_title">Descarga mi Currículum</h2>
-                <a href="#" id="download-cv-es" class="bg-blue-500 text-white px-6 py-3 rounded-md text-lg hover:bg-blue-600" data-key="download_cv_es_button">CV en Español</a>
-                <a href="#" id="download-cv-en" class="bg-green-500 text-white px-6 py-3 rounded-md text-lg hover:bg-green-600 ml-4" data-key="download_cv_en_button">CV en Inglés</a>
-            </div>
-        </section>
-
-        <!-- Contacto -->
-        <section id="contacto" class="py-20 bg-gray-200">
-             <div class="container mx-auto px-6">
-                <h2 class="text-3xl font-bold text-center mb-8" data-key="contact_title">Contacto</h2>
-                <form id="contact-form" class="max-w-xl mx-auto bg-white p-8 rounded-lg shadow-md">
-                    <div class="mb-4">
-                        <label for="name" class="block text-gray-700 font-bold mb-2" data-key="contact_name">Nombre</label>
-                        <input type="text" id="name" name="name" class="w-full px-3 py-2 border rounded-md">
-                    </div>
-                    <div class="mb-4">
-                        <label for="email" class="block text-gray-700 font-bold mb-2" data-key="contact_email">Email</label>
-                        <input type="email" id="email" name="email" class="w-full px-3 py-2 border rounded-md">
-                    </div>
-                    <div class="mb-4">
-                        <label for="message" class="block text-gray-700 font-bold mb-2" data-key="contact_message">Mensaje</label>
-                        <textarea id="message" name="message" rows="4" class="w-full px-3 py-2 border rounded-md"></textarea>
-                    </div>
-                    <div class="text-center">
-                        <button type="submit" class="bg-blue-500 text-white px-6 py-3 rounded-md text-lg hover:bg-blue-600" data-key="contact_submit">Enviar</button>
-                    </div>
-                </form>
-            </div>
-        </section>
+        <!-- Dynamic content root (partials will be loaded here) -->
+        <div id="content-root" class="mt-12"></div>
     </main>
 
     <script src="main.js"></script>

@@ -1,0 +1,30 @@
+<section id="contacto" class="py-20 bg-gray-200 content-section">
+  <div class="container mx-auto px-6">
+    <h2 class="text-3xl font-bold text-center mb-8" data-key="contact_title">Contacto</h2>
+    
+      
+    <!-- Contact form -->
+    <form id="contact-form" class="max-w-xl mx-auto bg-white p-8 rounded-lg shadow-md">
+      <div class="mb-4">
+        <label for="name" class="block text-gray-700 font-bold mb-2" data-key="contact_name">Nombre</label>
+        <input type="text" id="name" name="name" class="w-full px-3 py-2 border rounded-md">
+      </div>
+      <div class="mb-4">
+        <label for="email" class="block text-gray-700 font-bold mb-2" data-key="contact_email">Email</label>
+        <input type="email" id="email" name="email" class="w-full px-3 py-2 border rounded-md">
+      </div>
+      <div class="mb-4">
+        <label for="message" class="block text-gray-700 font-bold mb-2" data-key="contact_message">Mensaje</label>
+        <textarea id="message" name="message" rows="4" class="w-full px-3 py-2 border rounded-md"></textarea>
+      </div>
+      <div class="text-center">
+        <button type="submit" class="bg-blue-500 text-white px-6 py-3 rounded-md text-lg hover:bg-blue-600" data-key="contact_submit">Enviar</button>
+      </div>
+    </form>
+
+  </div>
+
+   <!-- Contact links container (filled by main.js) -->
+    <div id="contact-links" class="flex justify-center gap-8 mt-8 mb-8 flex-wrap"></div>
+ 
+</section>

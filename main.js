@@ -84,6 +84,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     document.body.appendChild(badge);
                     setTimeout(() => { badge.remove(); }, 6000);
                 }
+                // Apply default theme colors from data.json if provided
+                try {
+                    const themeColors = (data.theme_colors) || (data.branding && data.branding.colors) || null;
+                    if (themeColors) applyThemeColors(themeColors);
+                } catch (e) { console.warn('Theme colors not applied:', e); }
             } catch (err) { console.error(err); }
             renderContent(currentLang, false); // No animar en la carga inicial
             // Ensure contact links are initialized on initial load too
@@ -92,6 +97,64 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (error) {
             console.error('Error al cargar los datos:', error);
         }
+    }
+
+    // --- Theme Colors Helpers ---
+    function hexToRgb(hex) {
+        if (!hex) return null;
+        let c = hex.trim();
+        if (c.startsWith('#')) c = c.slice(1);
+        if (c.length === 3) c = c.split('').map(ch => ch + ch).join('');
+        if (c.length !== 6) return null;
+        const num = parseInt(c, 16);
+        const r = (num >> 16) & 255;
+        const g = (num >> 8) & 255;
+        const b = num & 255;
+        return { r, g, b };
+    }
+    function rgbaFromHex(hex, alpha) {
+        const rgb = hexToRgb(hex);
+        if (!rgb) return null;
+        return `rgba(${rgb.r},${rgb.g},${rgb.b},${alpha})`;
+    }
+    function setVar(name, value) {
+        if (value == null) return;
+        document.documentElement.style.setProperty(name, value);
+    }
+    function applyThemeColors(cfg) {
+        // Gradient background
+        if (cfg.gradient) {
+            setVar('--bg-top', cfg.gradient.top || null);
+            setVar('--bg-mid', cfg.gradient.mid || null);
+            setVar('--bg-bottom', cfg.gradient.bottom || null);
+        }
+
+        // Primary palette to derive blobs/highlights if explicit values not provided
+        const primary = cfg.primary || '#0C8296';
+        const secondary = cfg.secondary || cfg.primary || '#0C5F87';
+        const accent = cfg.accent || cfg.primary || '#1296A0';
+        const soft = cfg.soft || secondary || '#3C9696';
+
+        // Blob colors (allow explicit overrides or derive from palette)
+        setVar('--blob1', cfg.blob1 || rgbaFromHex(primary, 0.92));
+        setVar('--blob2', cfg.blob2 || rgbaFromHex(secondary, 0.84));
+        setVar('--blob3', cfg.blob3 || rgbaFromHex(accent, 0.82));
+        setVar('--blob4', cfg.blob4 || rgbaFromHex(soft, 0.58));
+
+        // Highlights (explicit or derived from accent)
+        setVar('--highlight1', cfg.highlight1 || rgbaFromHex(accent, 0.09));
+        setVar('--highlight2', cfg.highlight2 || rgbaFromHex(accent, 0.06));
+
+        // Text/link/labels
+        setVar('--text-main', cfg.text || null);
+        setVar('--link-color', cfg.link || null);
+        setVar('--label-color', cfg.label || null);
+        setVar('--underline-color', cfg.underline || cfg.link || null);
+
+        // Modal and card backgrounds (optional)
+        setVar('--modal-bg', cfg.modal_bg || null);
+        setVar('--card-bg', cfg.card_bg || null);
+        setVar('--toast-bg', cfg.toast_bg || null);
     }
 
     // Renderizar contenido según el idioma

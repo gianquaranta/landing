@@ -1,5 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
 
+:root {
+  --bg-top: #040812;
+  --bg-mid: #071228;
+  --bg-bottom: #021026;
+  --text-main: #e6eef8;
+  --underline-color: #dfefff;
+  --link-color: #cdeeff;
+  --label-color: #f0f7ff;
+  --blob1: rgba(12,130,150,0.92);
+  --blob2: rgba(12,95,135,0.84);
+  --blob3: rgba(18,150,160,0.82);
+  --blob4: rgba(60,150,150,0.58);
+  --highlight1: rgba(40,200,190,0.09);
+  --highlight2: rgba(90,200,220,0.06);
+  --toast-bg: rgba(10,18,30,0.9);
+  --modal-bg: #071228;
+  --card-bg: rgba(255,255,255,0.06);
+}
+
 body {
   font-family: 'Poppins', sans-serif;
 }
@@ -8,8 +27,8 @@ body {
 #inicio {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(180deg, #040812 0%, #071228 50%, #021026 100%);
-  color: #e6eef8;
+  background: linear-gradient(180deg, var(--bg-top) 0%, var(--bg-mid) 50%, var(--bg-bottom) 100%);
+  color: var(--text-main);
 }
 
 /* soft moving blobs layer using pseudo-element */
@@ -19,10 +38,10 @@ body {
   content: '';
   position: absolute;
   inset: -36%;
-  background-image: radial-gradient(110rem circle at 6% 18%, rgba(12,130,150,0.92), transparent 30%),
-                    radial-gradient(88rem circle at 86% 54%, rgba(12,95,135,0.84), transparent 28%),
-                    radial-gradient(72rem circle at 50% 86%, rgba(18,150,160,0.82), transparent 28%),
-                    radial-gradient(44rem circle at 68% 16%, rgba(60,150,150,0.58), transparent 26%);
+  background-image: radial-gradient(110rem circle at 6% 18%, var(--blob1), transparent 30%),
+                    radial-gradient(88rem circle at 86% 54%, var(--blob2), transparent 28%),
+                    radial-gradient(72rem circle at 50% 86%, var(--blob3), transparent 28%),
+                    radial-gradient(44rem circle at 68% 16%, var(--blob4), transparent 26%);
   filter: blur(26px);
   transform: translate3d(0,0,0);
   mix-blend-mode: screen;
@@ -38,8 +57,8 @@ body {
   content: '';
   position: absolute;
   inset: -8%;
-  background: radial-gradient(46rem circle at 28% 28%, rgba(40,200,190,0.09), transparent 30%),
-              radial-gradient(34rem circle at 72% 72%, rgba(90,200,220,0.06), transparent 28%);
+  background: radial-gradient(46rem circle at 28% 28%, var(--highlight1), transparent 30%),
+              radial-gradient(34rem circle at 72% 72%, var(--highlight2), transparent 28%);
   filter: blur(10px);
   mix-blend-mode: screen;
   animation: highlightPulse 7s ease-in-out infinite;
@@ -70,7 +89,7 @@ body {
 /* Language and Nav buttons */
 .nav-button {
   background: transparent;
-  color: #e6eef8; /* very light gray */
+  color: var(--text-main); /* very light gray */
   font-weight: 600;
   padding: 0.25rem 0.5rem;
   position: relative;
@@ -85,7 +104,7 @@ body {
   height: 2px;
   bottom: -2px;
   left: 50%;
-  background-color: #dfefff;
+  background-color: var(--underline-color);
   transition: all 0.28s cubic-bezier(.2,.8,.2,1);
 }
 
@@ -208,15 +227,15 @@ body.collapsed .section-bar {
 body.collapsed:not(.handwritten) #content-root,
 body.collapsed:not(.handwritten) #content-root .content-section {
   background: transparent !important;
-  color: #e6eef8 !important;
+  color: var(--text-main) !important;
 }
 
 /* Cards inside content sections keep a subtle translucent white background */
 /* ONLY applies when NOT handwritten theme */
 body.collapsed:not(.handwritten) #content-root .content-section .bg-white,
 body.collapsed:not(.handwritten) #content-root .bg-card {
-  background: rgba(255,255,255,0.06) !important;
-  color: #e6eef8 !important;
+  background: var(--card-bg) !important;
+  color: var(--text-main) !important;
   box-shadow: 0 6px 18px rgba(0,0,0,0.22) !important;
 }
 
@@ -244,7 +263,7 @@ body.collapsed:not(.handwritten) #content-root form select {
 /* Make links inside overlay readable against the hero background */
 /* ONLY applies when NOT handwritten theme */
 body.collapsed:not(.handwritten) #content-root a {
-  color: #cdeeff !important;
+  color: var(--link-color) !important;
 }
 
 /* Improve visibility for form headings/labels inside the overlay */
@@ -253,7 +272,7 @@ body.collapsed:not(.handwritten) #content-root form h1,
 body.collapsed:not(.handwritten) #content-root form h2,
 body.collapsed:not(.handwritten) #content-root form h3,
 body.collapsed:not(.handwritten) #content-root form label {
-  color: #f0f7ff !important;
+  color: var(--label-color) !important;
 }
 
 /* Disabled form controls styling */
@@ -317,8 +336,8 @@ body.modal-open #content-root {
   left: 50%;
   transform: translateX(-50%) translateY(24px);
   bottom: 24px;
-  background: rgba(10,18,30,0.9);
-  color: #e6eef8;
+  background: var(--toast-bg);
+  color: var(--text-main);
   padding: 0.6rem 1rem;
   border-radius: 8px;
   box-shadow: 0 6px 18px rgba(0,0,0,0.35);
@@ -361,8 +380,8 @@ body.modal-open #content-root {
 .download-modal .download-card {
   position: relative;
   z-index: 999999;
-  background: #071228; /* solid dark background for the popup */
-  color: #e6eef8;
+  background: var(--modal-bg); /* solid dark background for the popup */
+  color: var(--text-main);
   padding: 1.5rem 1.25rem;
   border-radius: 10px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.55);
@@ -433,13 +452,6 @@ body.modal-open #section-bar {
 /* Project cards should stretch to full container width like other section cards */
 .project-card { max-width: none; margin: 0; }
 
-/* Project images with 4:3 aspect ratio */
-.project-card .project-image {
-  aspect-ratio: 4/3;
-  width: 100%;
-  object-fit: cover;
-}
-
 /* Restore text colors: main text white, details very light gray */
 .content-section p,
 .content-section h1,
@@ -454,7 +466,7 @@ body.modal-open #section-bar {
 .content-section .text-gray-700,
 .content-section .text-sm,
 .content-section .text-muted {
-  color: #e6eef8; /* very light gray for details */
+  color: var(--text-main); /* very light gray for details */
 }
 
 /* when collapsed, make hero-nav items smaller to fit as navbar */

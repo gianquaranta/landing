@@ -44,7 +44,7 @@
         "projects": [
             {
                 "title": "CONTACTAME",
-                "description": "Web App para conectar vecinos con profesionales de servicios y comercios en La Plata. Publicada en https://contactame.com.ar. Desarrollada íntegramente utilizando GCP y Firebase (Firestore, Storage, Hosting, Authentication); Frontend en React con Bootstrap y Backend en Spring con base de datos NoSQL (Firestore), conectados mediante API REST. Cuenta con +180 profesionales registrados, +300 usuarios y un promedio de 100 visitas diarias.",
+                "description": "Web App para conectar vecinos con profesionales de servicios y comercios en La Plata. Desarrollada íntegramente utilizando GCP y Firebase (Firestore, Storage, Hosting, Authentication); Frontend en React con Bootstrap y Backend en Spring con base de datos NoSQL (Firestore), conectados mediante API REST. Cuenta con +180 profesionales registrados, +300 usuarios y un promedio de 100 visitas diarias.",
                 "link": "https://contactame.com.ar",
                 "image": "contactame.png"
             },
@@ -114,7 +114,7 @@
         "projects": [
             {
                 "title": "CONTACTAME",
-                "description": "Web App designed to connect neighbors with service professionals and local businesses in La Plata. Live at https://contactame.com.ar. Built entirely using GCP and Firebase (Firestore, Storage, Hosting, Authentication); Frontend in React with Bootstrap and Backend in Spring with NoSQL database (Firestore), integrated via REST API. +180 registered professionals, +300 users, and an average of 100 daily visits.",
+                "description": "Web App designed to connect neighbors with service professionals and local businesses in La Plata. Built entirely using GCP and Firebase (Firestore, Storage, Hosting, Authentication); Frontend in React with Bootstrap and Backend in Spring with NoSQL database (Firestore), integrated via REST API. +180 registered professionals, +300 users, and an average of 100 daily visits.",
                 "link": "https://contactame.com.ar",
                 "image": "contactame.jpg"
             },
@@ -160,6 +160,23 @@
     "branding": {
         "favicon": "favicon.ico",
         "logo": "logo.png"
+    },
+    "theme_colors": {
+        "gradient": {
+            "top": "#040812",
+            "mid": "#071228",
+            "bottom": "#021026"
+        },
+        "primary": "#0C8296",
+        "secondary": "#0C5F87",
+        "accent": "#1296A0",
+        "soft": "#3C9696",
+        "text": "#e6eef8",
+        "link": "#cdeeff",
+        "label": "#f0f7ff",
+        "underline": "#dfefff",
+        "modal_bg": "#071228",
+        "toast_bg": "rgba(10,18,30,0.9)"
     },
     "default_language": "es",
     "sections_order": ["informacion", "experiencia", "proyectos", "descarga", "contacto"],

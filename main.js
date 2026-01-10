@@ -17,8 +17,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // Cargar datos y renderizar
     async function loadDataAndRender() {
         try {
-            const response = await fetch('data.json');
-            data = await response.json();
+            const dataUrl = window.DATA_URL || `data.json?v=${Date.now()}`;
+            const response = await fetch(dataUrl, { cache: 'no-store' });
+            const contentType = response.headers.get('content-type') || '';
+            if (contentType.includes('application/json')) {
+                data = await response.json();
+            } else {
+                const txt = await response.text();
+                data = JSON.parse(txt);
+            }
             
             // Apply default language
             if (data.default_language) {

@@ -13,7 +13,7 @@
 
 /* Handwritten theme only applies when body has class 'handwritten' */
 body.handwritten {
-  font-family: 'Permanent Marker', 'Caveat', 'Patrick Hand', 'Poppins', cursive;
+  font-family: 'Patrick Hand', 'Poppins', cursive;
   color: var(--pencil-ink);
   font-size: 18px; /* larger base for handwritten style */
 }
@@ -42,8 +42,8 @@ body.handwritten #inicio {
 
 /* Page title in header - darker text for handwritten theme */
 body.handwritten .page-title {
+  font-family: 'Patrick Hand', cursive !important;
   color: var(--pencil-ink) !important;
-  font-weight: bold;
 }
 
 body.handwritten .content-section h1,
@@ -57,7 +57,7 @@ body.handwritten .content-section li,
 body.handwritten .content-section a,
 body.handwritten #inicio .hero-text h1,
 body.handwritten #inicio .hero-text p {
-  font-family: 'Caveat', 'Patrick Hand', cursive;
+  font-family:  'Patrick Hand', cursive;
   color: var(--pencil-ink);
   /* subtle shadow to emulate pencil texture; reduced intensity for legibility */
   text-shadow:
@@ -94,7 +94,7 @@ body.handwritten .content-section .caption,
 body.handwritten .content-section .text-sm {
   color: var(--pencil-ink-soft) !important;
   text-shadow: none;
-  font-family: 'Caveat', 'Patrick Hand', cursive;
+  font-family:  'Patrick Hand', cursive;
   font-size: 15px; /* slightly larger small text for readability */
 }
 
@@ -106,7 +106,7 @@ body.handwritten .cv-button,
 body.handwritten .cv-close,
 body.handwritten .project-link,
 body.handwritten button {
-  font-family: 'Caveat', 'Patrick Hand', cursive;
+  font-family:  'Patrick Hand', cursive;
   background: var(--paper-bg);
   border: 1px solid rgba(0,0,0,0.06);
   color: var(--pencil-ink);
@@ -125,10 +125,21 @@ body.handwritten button:hover {
   transform: scale(1.08);
 }
 
+/* Handwritten theme: hover underline should be black */
+body.handwritten .nav-button:hover::after {
+  background-color: #000 !important;
+}
+
+/* Handwritten theme: hero social icons in dark gray */
+body.handwritten .hero-social a {
+  color: var(--pencil-ink) !important; /* dark gray */
+}
+
 /* Active/selected section button - thicker border */
 body.handwritten .nav-button.selected,
 body.handwritten .section-bar .nav-button.selected {
-  border: 3px solid var(--pencil-ink) !important;
+  border: none !important;
+  border-bottom: 3px solid var(--pencil-ink) !important;
   font-weight: bold;
 }
 
@@ -169,10 +180,17 @@ body.handwritten.collapsed .content-section {
 body.handwritten.collapsed .content-section .bg-white,
 body.handwritten.collapsed .bg-card,
 body.handwritten.collapsed #content-root .content-section > div > div {
-  background: #ffffff !important;
   color: var(--pencil-ink) !important;
   border: 1px solid rgba(0,0,0,0.1) !important;
   box-shadow: 0 4px 12px rgba(0,0,0,0.08) !important;
+}
+
+/* But keep social links containers fully transparent with no borders/shadows */
+body.handwritten.collapsed #content-root #contact-links,
+body.handwritten.collapsed #content-root #personal-contact-links {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 
 /* Links color in overlay */
@@ -197,7 +215,7 @@ body.handwritten .content-section textarea,
 body.handwritten #contact-form label,
 body.handwritten #contact-form .text-gray-700 {
   color: var(--pencil-ink) !important;
-  font-family: 'Caveat', cursive !important;
+  font-family:  cursive !important;
 }
 
 body.handwritten .content-section input,
@@ -205,7 +223,7 @@ body.handwritten .content-section textarea {
   background: #ffffff !important;
   border: 2px solid rgba(0,0,0,0.2) !important;
   color: var(--pencil-ink) !important;
-  font-family: 'Caveat', cursive !important;
+  font-family:  cursive !important;
   font-size: 18px !important;
   padding: 0.6rem !important;
 }
@@ -215,7 +233,7 @@ body.handwritten .content-section form button {
   background: transparent !important;
   border: 2px solid var(--pencil-ink) !important;
   color: var(--pencil-ink) !important;
-  font-family: 'Caveat', cursive !important;
+  font-family:  cursive !important;
   font-size: 20px !important;
   padding: 0.5rem 1.5rem !important;
 }
@@ -225,6 +243,7 @@ body.handwritten #contact-links a,
 body.handwritten #personal-contact-links a {
   color: var(--pencil-ink) !important;
   transition: transform 0.2s ease;
+  font-family: 'Patrick Hand', cursive !important;
 }
 
 body.handwritten #contact-links a:hover,
@@ -233,11 +252,29 @@ body.handwritten #personal-contact-links a:hover {
   transform: scale(1.1);
 }
 
+/* Ensure labels under icons also use handwritten fonts */
 body.handwritten #contact-links a span,
 body.handwritten #personal-contact-links a span {
-  font-family: 'Permanent Marker', 'Caveat', cursive !important;
-  font-size: 16px;
+  font-family: 'Patrick Hand', cursive !important;
 }
+
+/* Personal info content anchors should use Patrick Hand */
+body.handwritten #personal-info-content a {
+  font-family: 'Patrick Hand', cursive !important;
+}
+
+/* Skill chips use Patrick Hand in handwritten theme */
+body.handwritten .skill-chip,
+body.handwritten .title-chip {
+  font-family: 'Patrick Hand', cursive !important;
+}
+
+/* Tech chips row uses Patrick Hand as well in handwritten theme */
+body.handwritten .tech-chip {
+  font-family: 'Patrick Hand', cursive !important;
+}
+
+
 
 /* Stronger overrides for collapsed state - keep form gray and fields white */
 body.handwritten.collapsed #contact-form,
@@ -264,7 +301,7 @@ body.handwritten.collapsed #contact-form textarea {
 /* Stronger overrides for contact form labels and placeholders to ensure readability */
 body.handwritten #contact-form label {
   color: var(--pencil-ink) !important;
-  font-family: 'Caveat', cursive !important;
+  font-family:  cursive !important;
   font-size: 18px !important;
 }
 body.handwritten #contact-form input,
@@ -291,18 +328,18 @@ body.handwritten .download-modal .download-card {
   border: 2px solid rgba(0,0,0,0.15) !important;
   box-shadow: 0 12px 36px rgba(0,0,0,0.15) !important;
   z-index: 999999 !important;
-  font-family: 'Caveat', cursive !important;
+  font-family:  cursive !important;
 }
 body.handwritten .download-modal h3,
 body.handwritten .download-modal p {
   color: var(--pencil-ink) !important;
-  font-family: 'Caveat', cursive !important;
+  font-family:  cursive !important;
 }
 body.handwritten .download-modal .cv-button {
   background: transparent !important;
   border: 2px solid var(--pencil-ink) !important;
   color: var(--pencil-ink) !important;
-  font-family: 'Caveat', cursive !important;
+  font-family:  cursive !important;
   font-size: 20px !important;
   padding: 0.6rem 1.2rem !important;
 }
@@ -313,7 +350,7 @@ body.handwritten .download-modal .cv-close {
   background: transparent !important;
   border: 2px solid rgba(0,0,0,0.25) !important;
   color: var(--pencil-ink) !important;
-  font-family: 'Caveat', cursive !important;
+  font-family:  cursive !important;
   font-size: 18px !important;
   padding: 0.5rem 1rem !important;
 }

@@ -12,13 +12,10 @@
             "status": "Finalizado (2020 – 2025)",
             "gpa": "Promedio: 8.47"
         },
-        "skills_title": "HABILIDADES",
-        "skills": {
-            "soft_title": "SOFT-SKILLS",
-            "soft": ["Buena comunicación","Liderazgo","Trabajo en equipo","Responsabilidad","Proactividad"],
-            "hard_title": "HARD-SKILLS",
-            "hard": ["Inglés C1","Backend (Java, Python)","Frontend (React, Angular)","GIT","SQL","RPA (BluePrism)"]
-        },
+        "soft_skills_title": "SOFT-SKILLS",
+        "soft_skills": ["Buena comunicación","Trabajo en equipo","Liderazgo","Responsabilidad","Proactividad"],
+        "hard_skills_title": "HARD-SKILLS",
+        "hard_skills": ["Inglés C1", "Web development", "GIT", "RPA (BluePrism)", "Backend (Java, Python, .NET)","API REST", "Frontend (React, Angular)","SQL Server","Firestore"],
         "experience_title": "Experiencia Profesional",
         "experience": [
             {
@@ -46,13 +43,15 @@
                 "title": "CONTACTAME",
                 "description": "Web App para conectar vecinos con profesionales de servicios y comercios en La Plata. Desarrollada íntegramente utilizando GCP y Firebase (Firestore, Storage, Hosting, Authentication); Frontend en React con Bootstrap y Backend en Spring con base de datos NoSQL (Firestore), conectados mediante API REST. Cuenta con +180 profesionales registrados, +300 usuarios y un promedio de 100 visitas diarias.",
                 "link": "https://contactame.com.ar",
-                "image": "contactame.png"
+                "image": "contactame.png",
+                "tech": ["react", "spring", "firebase", "gcp"]
             },
             {
                 "title": "CATÁLOGO ONLINE BONNAT",
-                "description": "Catálogo de pastelería con sistema de pedidos vía WhatsApp. Permite gestionar una lista de productos, generar pedidos automáticos y almacenarlos en base de datos. Incluye un panel de administración para gestión de stock y pedidos. Desarrollado con Next.js, Supabase, Vercel y n8n para la automatización de actualizaciones de precios.",
+                "description": "Catálogo de pastelería con sistema de pedidos vía WhatsApp. Permite gestionar una lista de productos, generar pedidos automáticos y almacenarlos en base de datos. Incluye un panel de administración para gestión de stock y pedidos. 'Vibe-codeado' mediante la herramienta v0 con Next.js, Supabase, Vercel y n8n para la automatización de actualizaciones de precios.",
                 "link": "https://bonnat.com.ar",
-                "image": "bonnat.png"
+                "image": "bonnat.png",
+                "tech": ["vercel", "supabase", "nextjs"]
             }
         ],
         "nav_about": "Sobre Mí",
@@ -82,13 +81,10 @@
             "status": "Completed (2020 – 2025)",
             "gpa": "GPA: 8.47"
         },
-        "skills_title": "SKILLS",
-        "skills": {
-            "soft_title": "SOFT-SKILLS",
-            "soft": ["Good communication","Leadership","Teamwork","Responsibility","Proactivity"],
-            "hard_title": "HARD-SKILLS",
-            "hard": ["English C1","Backend (Java, Python)","Frontend (React, Angular)","GIT","SQL","RPA (BluePrism)"]
-        },
+        "soft_skills_title": "SOFT-SKILLS",
+        "soft_skills": ["Good communication","Leadership","Teamwork","Responsibility","Proactivity"],
+        "hard_skills_title": "HARD-SKILLS",
+        "hard_skills": ["English C1","Backend (Java, Python)","Frontend (React, Angular)","GIT","SQL Server","Firestore","RPA (BluePrism)"],
         "experience_title": "Professional Experience",
         "experience": [
             {
@@ -116,13 +112,15 @@
                 "title": "CONTACTAME",
                 "description": "Web App designed to connect neighbors with service professionals and local businesses in La Plata. Built entirely using GCP and Firebase (Firestore, Storage, Hosting, Authentication); Frontend in React with Bootstrap and Backend in Spring with NoSQL database (Firestore), integrated via REST API. +180 registered professionals, +300 users, and an average of 100 daily visits.",
                 "link": "https://contactame.com.ar",
-                "image": "contactame.jpg"
+                "image": "contactame.jpg",
+                "tech": ["react", "spring", "firebase", "gcp"]
             },
             {
                 "title": "BONNAT ONLINE CATALOG",
-                "description": "Bakery catalog featuring a WhatsApp ordering system. Users can browse products and generate orders that are sent via WhatsApp and recorded in a database. It includes an admin dashboard for product uploads and order management. Built with Next.js, Supabase, Vercel, and n8n for automated price updates.",
+                "description": "Bakery catalog featuring a WhatsApp ordering system. Users can browse products and generate orders that are sent via WhatsApp and recorded in a database. It includes an admin dashboard for product uploads and order management. 'Vibe-coded' using v0 with Next.js, Supabase, Vercel, and n8n for automated price updates.",
                 "link": "https://bonnat.com.ar",
-                "image": "bonnat.jpg"
+                "image": "bonnat.jpg",
+                "tech": ["vercel", "supabase", "nextjs"]
             }
         ],
         "nav_about": "About Me",
@@ -181,5 +179,5 @@
     "default_language": "es",
     "sections_order": ["informacion", "experiencia", "proyectos", "descarga", "contacto"],
     "hero_photo": "logo.png",
-    "theme": "default"
+    "theme": "handwritten"
 }

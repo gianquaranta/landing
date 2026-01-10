@@ -66,23 +66,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     // expose applied theme for debugging
                     document.body.setAttribute('data-theme', data.theme);
                     console.log('Applied theme from data.json:', data.theme);
-                    // small visible badge so user can see the active theme
-                    const existingBadge = document.getElementById('theme-badge');
-                    if (existingBadge) existingBadge.remove();
-                    const badge = document.createElement('div');
-                    badge.id = 'theme-badge';
-                    badge.textContent = `theme: ${data.theme}`;
-                    badge.style.position = 'fixed';
-                    badge.style.right = '12px';
-                    badge.style.top = '12px';
-                    badge.style.padding = '6px 10px';
-                    badge.style.background = 'rgba(0,0,0,0.6)';
-                    badge.style.color = 'white';
-                    badge.style.borderRadius = '6px';
-                    badge.style.zIndex = 9999;
-                    badge.style.fontSize = '12px';
-                    document.body.appendChild(badge);
-                    setTimeout(() => { badge.remove(); }, 6000);
                 }
                 // Apply default theme colors from data.json if provided
                 try {
@@ -235,24 +218,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 `;
             }
 
-            // Skills (soft + hard)
+            // Skills (soft + hard) -> dos cards con títulos y chips planos desde data.json
             let skillsHtml = '';
-            if (data[lang].skills) {
-                const sk = data[lang].skills;
-                const softList = Array.isArray(sk.soft) ? sk.soft.map(s => `<li class="ml-4 list-disc">${s}</li>`).join('') : '';
-                const hardList = Array.isArray(sk.hard) ? sk.hard.map(s => `<li class="ml-4 list-disc">${s}</li>`).join('') : '';
+            if (data[lang]) {
+                const sk = data[lang].skills || {};
+                const softItems = Array.isArray(data[lang].soft_skills) ? data[lang].soft_skills : (Array.isArray(sk.soft) ? sk.soft : []);
+                const hardItems = Array.isArray(data[lang].hard_skills) ? data[lang].hard_skills : (Array.isArray(sk.hard) ? sk.hard : []);
+                const softTitle = data[lang].soft_skills_title || sk.soft_title || '';
+                const hardTitle = data[lang].hard_skills_title || sk.hard_title || '';
+                const softChips = softItems.map(s => `<span class=\"skill-chip\">${s}</span>`).join('');
+                const hardChips = hardItems.map(s => `<span class=\"skill-chip\">${s}</span>`).join('');
+
                 skillsHtml = `
-                    <div class="mb-6 bg-white p-6 rounded-lg shadow-md">
-                        <h3 class="text-xl font-bold">${data[lang].skills_title || ''}</h3>
-                        <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <h4 class="font-semibold">${sk.soft_title || ''}</h4>
-                                <ul class="mt-2 text-sm text-gray-700">${softList}</ul>
-                            </div>
-                            <div>
-                                <h4 class="font-semibold">${sk.hard_title || ''}</h4>
-                                <ul class="mt-2 text-sm text-gray-700">${hardList}</ul>
-                            </div>
+                    <div class=\"skills-two-col\">
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <h4 class=\"font-semibold\">${softTitle}</h4>
+                            <div class=\"chip-list mt-2\">${softChips}</div>
+                        </div>
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <h4 class=\"font-semibold\">${hardTitle}</h4>
+                            <div class=\"chip-list mt-2\">${hardChips}</div>
                         </div>
                     </div>
                 `;
@@ -262,10 +247,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="mb-4">
                     <p>${bio}</p>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>${educationHtml}</div>
-                    <div>${skillsHtml}</div>
-                </div>
+                ${educationHtml}
+                ${skillsHtml}
             `;
 
             if (animate) {
@@ -300,10 +283,38 @@ document.addEventListener('DOMContentLoaded', () => {
             // Remove Tailwind grid classes that limit width
             projectsContent.className = '';
             
+            // Helper: tech to SVG file path mapping (brand icons)
+            const techIconPath = {
+                react: 'react.svg',
+                spring: 'spring.svg',
+                firebase: 'firebase.svg',
+                gcp: 'gcp.svg',
+                vercel: 'vercel.svg',
+                supabase: 'supabase.svg',
+                nextjs: 'next.svg'
+            };
+            const renderTechRow = (project) => {
+                const tech = project.tech && Array.isArray(project.tech) ? project.tech : [];
+                if (!tech.length) return '';
+                const chips = tech
+                    .map(name => {
+                        const key = String(name || '').toLowerCase();
+                        const path = techIconPath[key];
+                        if (!path) return '';
+                        const icon = `<img src="${path}" alt="${name} icon" class="tech-icon-img" aria-hidden="true">`;
+                        const label = String(name).toUpperCase();
+                        return `<span class="tech-chip">${icon}<span class="tech-label">${label}</span></span>`;
+                    })
+                    .filter(Boolean)
+                    .join('');
+                return `<div class="tech-row">${chips}</div>`;
+            };
+
             const cardsHtml = projects.map(project => `
                 <div class="project-card bg-white p-6 rounded-lg shadow-md">
                     ${project.image ? `<div class="w-full mb-4 rounded-md overflow-hidden" style="aspect-ratio: 16/9;"><img src="${project.image}" alt="${project.title}" class="w-full h-full object-cover"></div>` : ''}
                     <h3 class="text-xl font-bold">${project.title}</h3>
+                    ${renderTechRow(project)}
                     <p class="mt-2">${project.description}</p>
                     <a href="${project.link}" class="project-link text-blue-500 hover:underline mt-4 inline-block">${data[lang].projects_cta || (lang === 'es' ? 'Ver proyecto' : 'View project')}</a>
                 </div>
@@ -364,6 +375,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // (Sin agrupación ni cálculo de categorías: los chips se leen y muestran tal cual del data.json)
+
     function updateLangButtons(lang) {
         if (lang === 'es') {
             langEsBtn.classList.add('selected');
@@ -407,10 +420,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const personalLinkedinLink = document.getElementById('personal-contact-linkedin');
         const personalGithubLink = document.getElementById('personal-contact-github');
         
-        if (personalEmailLink && data.contact_info.email) {
+        if (personalEmailLink) {
             personalEmailLink.onclick = (e) => {
                 e.preventDefault();
-                window.location.href = `mailto:${data.contact_info.email}`;
+                // Open contact form partial instead of mailto
+                collapseAndShow('#contacto');
             };
         }
         if (personalLinkedinLink && data.contact_info.linkedin) {
@@ -424,6 +438,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 e.preventDefault();
                 window.open(data.contact_info.github, '_blank', 'noopener,noreferrer');
             };
+        }
+        // Hero social: set external hrefs so default behavior opens in new tab
+        const heroLinkedin = document.getElementById('hero-linkedin');
+        const heroGithub = document.getElementById('hero-github');
+        if (heroLinkedin && data.contact_info.linkedin) {
+            heroLinkedin.setAttribute('href', data.contact_info.linkedin);
+        }
+        if (heroGithub && data.contact_info.github) {
+            heroGithub.setAttribute('href', data.contact_info.github);
         }
     }
 
@@ -770,6 +793,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Hero mail: open contact partial
+    const heroMail = document.getElementById('hero-mail');
+    if (heroMail) {
+        heroMail.addEventListener('click', (e) => {
+            const href = heroMail.getAttribute('href');
+            if (href && href.startsWith('#')) {
+                e.preventDefault();
+                collapseAndShow(href);
+            }
+        });
+    }
+
     // Attach listeners to header section-bar links (so top bar buttons work when visible)
     document.querySelectorAll('#section-bar a.nav-button').forEach(a => {
         a.addEventListener('click', (e) => {
@@ -789,8 +824,11 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         switch (target.id) {
             case 'contact-email':
-            case 'personal-contact-email':
                 if (data.contact_info.email) window.location.href = `mailto:${data.contact_info.email}`;
+                break;
+            case 'personal-contact-email':
+                // About Me email opens contact partial
+                collapseAndShow('#contacto');
                 break;
             case 'contact-linkedin':
             case 'personal-contact-linkedin':

@@ -29,6 +29,11 @@ body {
   overflow: hidden;
   background: linear-gradient(180deg, var(--bg-top) 0%, var(--bg-mid) 50%, var(--bg-bottom) 100%);
   color: var(--text-main);
+  /* Use small viewport height to avoid mobile UI overlap */
+  height: 100vh;
+}
+@supports (height: 100svh) {
+  #inicio { height: 100svh !important; min-height: 100svh !important; }
 }
 
 /* soft moving blobs layer using pseudo-element */
@@ -113,6 +118,11 @@ body {
   left: 0;
 }
 
+/* Default theme: selected underline should be white */
+.nav-button.selected::after {
+  background-color: #fff;
+}
+
 .nav-button:hover {
   transform: scale(1.06);
 }
@@ -163,6 +173,58 @@ body.collapsed .hero-nav {
   transform: translateY(-22px);
   opacity: 0;
   pointer-events: none;
+}
+
+/* Hero social icons bottom center */
+.hero-social {
+  position: absolute;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 16px);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  z-index: 65; /* above hero ::before/::after layers */
+}
+.hero-social a { color: var(--text-main); opacity: 0.88; transition: transform 0.12s ease, opacity 0.12s ease; }
+.hero-social a:hover { opacity: 1; transform: translateY(-2px); }
+.hero-social .nav-button { padding: 0; }
+.hero-icon { width: 22px; height: 22px; }
+/* Hide icons when collapsed (overlay mode) */
+body.collapsed .hero-social { display: none !important; }
+
+/* Extra-small screens: tighten spacing and fonts so hero fits */
+@media (max-width: 390px) {
+  #inicio { padding-bottom: 56px; /* reserve space for bottom icons */ }
+  #inicio #hero-photo { width: 96px; height: 96px; }
+  #inicio .hero-text h1 { font-size: 2.25rem; }
+  #inicio .hero-text p { font-size: 1rem; }
+  #inicio .hero-nav { gap: 8px; }
+  #inicio .hero-nav .nav-button { font-size: 0.9rem; padding: 0.2rem 0.4rem; }
+}
+
+/* Contact links: small icons, transparent background, consistent font */
+#contact-links a,
+#personal-contact-links a {
+  background: transparent !important;
+  padding: 0;
+  border: 0;
+}
+
+#contact-links svg,
+#personal-contact-links svg {
+  width: 22px;
+  height: 22px;
+  display: block;
+}
+
+#contact-links a span,
+#personal-contact-links a span {
+  font-family: inherit;
+}
+
+@media (max-width: 640px) {
+  .hero-social { bottom: calc(env(safe-area-inset-bottom, 0px) + 12px); }
 }
 
 /* Header section bar: hidden by default, slides down when collapsed */
@@ -469,6 +531,31 @@ body.modal-open #section-bar {
   color: var(--text-main); /* very light gray for details */
 }
 
+/* --- Skills chips and groups --- */
+.skill-card { background: #ffffff; padding: 1.5rem; border-radius: 0.5rem; box-shadow: 0 6px 18px rgba(0,0,0,0.12); }
+.skill-groups { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+@media (min-width: 768px) { .skill-groups { grid-template-columns: 4fr 6fr; } }
+.skill-group { margin-bottom: 0.75rem; }
+.skill-group-title { font-weight: 600; margin-bottom: 0.5rem; }
+.chip-list { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+/* Tech icons row under project titles */
+.tech-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 6px 0 2px; }
+.tech-chip { display: inline-flex; align-items: center; gap: 6px; padding: 2px 8px; border-radius: 999px; border: 1px solid rgba(230,238,248,0.6); background: transparent; color: #9ca3af; font-size: 0.8rem; }
+.tech-chip .tech-icon-svg { width: 18px; height: 18px; display: inline-block; }
+.tech-chip .tech-icon-img { width: 18px; height: 18px; display: inline-block; object-fit: contain; }
+.tech-chip .tech-icon { line-height: 1; }
+.tech-chip .tech-label { letter-spacing: 0.02em; }
+.skill-chip { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.3rem 0.6rem; border-radius: 999px; border: 1px solid var(--underline-color); color: inherit; background: transparent; font-size: 0.92rem; }
+.skill-chip:hover { transform: translateY(-1px); transition: transform 0.12s ease; }
+
+/* Title chips: white background, subdued text to separar categorías/títulos como chips */
+.title-chip { background: #ffffff; color: rgba(0,0,0,0.35); border-color: rgba(230,238,248,0.6); }
+
+/* Two-column layout 50/50 for skills cards */
+.skills-two-col { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+@media (min-width: 768px) { .skills-two-col { grid-template-columns: 4fr 6fr; } }
+
 /* when collapsed, make hero-nav items smaller to fit as navbar */
 body.collapsed .hero-nav .nav-button {
   font-size: 0.95rem;
@@ -485,4 +572,27 @@ body.collapsed .hero-nav .nav-button {
 body.collapsed #hero-photo,
 body.collapsed #hero-photo-wrapper {
   display: none !important;
+}
+
+/* Hero social icons bottom center */
+.hero-social {
+  position: absolute;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 32px);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+.hero-social a { color: var(--text-main); opacity: 0.85; transition: transform 0.12s ease, opacity 0.12s ease; }
+.hero-social a:hover { opacity: 1; transform: translateY(-2px); }
+.hero-social .nav-button { padding: 0; }
+.hero-icon { width: 24px; height: 24px; }
+body.collapsed .hero-social { display: none !important; }
+
+/* Mobile adjustments: smaller photo and slightly smaller hero text */
+@media (max-width: 640px) {
+  #inicio #hero-photo { width: 120px !important; height: 120px !important; }
+  #inicio .hero-text h1 { font-size: 2.75rem !important; }
+  #inicio .hero-text p { font-size: 1.05rem !important; }
 }

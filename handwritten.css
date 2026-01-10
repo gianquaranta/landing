@@ -181,9 +181,14 @@ body.handwritten.collapsed .content-section .bg-white,
 body.handwritten.collapsed .bg-card,
 body.handwritten.collapsed #content-root .content-section > div > div {
   color: var(--pencil-ink) !important;
-  border: 1px solid rgba(0,0,0,0.1) !important;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08) !important;
+  box-shadow: none !important;
 }
+
+/* Explicitly remove borders from cards in handwritten overlay */
+body.handwritten.collapsed .card { border: none !important; }
+
+/* Remove box-shadow from project/experience cards in handwritten theme */
+body.handwritten .card { box-shadow: none !important; }
 
 /* But keep social links containers fully transparent with no borders/shadows */
 body.handwritten.collapsed #content-root #contact-links,

@@ -367,3 +367,31 @@ body.handwritten .download-modal .cv-close:hover {
 body.handwritten #inicio .hero-text p {
   font-size: 28px !important;
 }
+
+/* Minimal scrollbar on large screens (handwritten theme) */
+@media (min-width: 1024px) {
+  body.handwritten,
+  body.handwritten #content-root,
+  body.handwritten .content-section {
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: rgba(51,51,51,0.35) transparent; /* thumb, track */
+  }
+  /* WebKit-based browsers */
+  body.handwritten::-webkit-scrollbar,
+  body.handwritten #content-root::-webkit-scrollbar,
+  body.handwritten .content-section::-webkit-scrollbar { width: 8px; height: 8px; }
+  body.handwritten::-webkit-scrollbar-track,
+  body.handwritten #content-root::-webkit-scrollbar-track,
+  body.handwritten .content-section::-webkit-scrollbar-track { background: transparent; }
+  body.handwritten::-webkit-scrollbar-thumb,
+  body.handwritten #content-root::-webkit-scrollbar-thumb,
+  body.handwritten .content-section::-webkit-scrollbar-thumb {
+    background: rgba(51,51,51,0.28);
+    border-radius: 10px;
+  }
+  body.handwritten::-webkit-scrollbar-thumb:hover,
+  body.handwritten #content-root::-webkit-scrollbar-thumb:hover,
+  body.handwritten .content-section::-webkit-scrollbar-thumb:hover {
+    background: rgba(51,51,51,0.42);
+  }
+}

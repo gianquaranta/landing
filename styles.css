@@ -373,14 +373,12 @@ body.modal-open #content-root {
 /* Loader for content-root */
 .content-loader {
   display: none;
-  position: absolute;
-  top: 12px;
-  right: 12px;
+  position: fixed;
+  inset: 0;
   align-items: center;
   justify-content: center;
-  z-index: 80;
-  width: 40px;
-  height: 40px;
+  z-index: 999991; /* above overlay content */
+  pointer-events: none; /* do not block interactions */
 }
 .content-loader .spinner {
   width: 28px;
@@ -595,4 +593,30 @@ body.collapsed .hero-social { display: none !important; }
   #inicio #hero-photo { width: 120px !important; height: 120px !important; }
   #inicio .hero-text h1 { font-size: 2.75rem !important; }
   #inicio .hero-text p { font-size: 1.05rem !important; }
+}
+
+/* Minimal scrollbar on large screens (default theme) */
+@media (min-width: 1024px) {
+  html, body, #content-root, .content-section {
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: rgba(230,238,248,0.35) transparent; /* thumb, track */
+  }
+  /* WebKit-based browsers (Chrome, Edge, Safari) */
+  body::-webkit-scrollbar,
+  #content-root::-webkit-scrollbar,
+  .content-section::-webkit-scrollbar { width: 8px; height: 8px; }
+  body::-webkit-scrollbar-track,
+  #content-root::-webkit-scrollbar-track,
+  .content-section::-webkit-scrollbar-track { background: transparent; }
+  body::-webkit-scrollbar-thumb,
+  #content-root::-webkit-scrollbar-thumb,
+  .content-section::-webkit-scrollbar-thumb {
+    background: rgba(230,238,248,0.35);
+    border-radius: 10px;
+  }
+  body::-webkit-scrollbar-thumb:hover,
+  #content-root::-webkit-scrollbar-thumb:hover,
+  .content-section::-webkit-scrollbar-thumb:hover {
+    background: rgba(230,238,248,0.55);
+  }
 }

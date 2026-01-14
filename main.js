@@ -27,10 +27,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 data = JSON.parse(txt);
             }
             
-            // Apply default language
-            if (data.default_language) {
-                currentLang = data.default_language;
-            }
+            // Apply default language, but prefer stored user choice if present
+            try {
+                const storedLang = (() => { try { return localStorage.getItem('preferredLang'); } catch (e) { return null; } })();
+                if (storedLang && (storedLang === 'es' || storedLang === 'en')) {
+                    currentLang = storedLang;
+                } else if (data.default_language) {
+                    currentLang = data.default_language;
+                }
+            } catch (e) { if (data.default_language) currentLang = data.default_language; }
             
             // Apply SEO metadata
             if (data.seo) {
@@ -146,6 +151,148 @@ document.addEventListener('DOMContentLoaded', () => {
         setVar('--card-bg', cfg.card_bg || null);
         setVar('--toast-bg', cfg.toast_bg || null);
     }
+
+    // --- Matrix binary rain (canvas) and hero typing animation ---
+    let _matrix = {
+        canvas: null,
+        ctx: null,
+        rafId: null,
+        drops: [],
+        fontSize: 14,
+        columns: 0,
+        running: false,
+        resizeHandler: null
+    };
+    let _typing = {
+        titleIntervalId: null,
+        original: { title: { es: null, en: null } }
+    };
+
+    function startMatrixRain() {
+        if (_matrix.running) return;
+        const hero = document.getElementById('inicio');
+        if (!hero) return;
+        // create canvas
+        const c = document.createElement('canvas');
+        c.className = 'matrix-canvas';
+        c.style.position = 'absolute';
+        c.style.inset = '0';
+        c.style.width = '100%';
+        c.style.height = '100%';
+        c.style.pointerEvents = 'none';
+        c.style.zIndex = '0';
+        hero.appendChild(c);
+        const ctx = c.getContext('2d');
+        function resize() {
+            const rect = hero.getBoundingClientRect();
+            c.width = Math.max(300, Math.floor(rect.width * window.devicePixelRatio));
+            c.height = Math.max(200, Math.floor(rect.height * window.devicePixelRatio));
+            c.style.width = rect.width + 'px';
+            c.style.height = rect.height + 'px';
+            ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+            _matrix.fontSize = Math.max(12, Math.floor(rect.width / 80));
+            _matrix.columns = Math.floor(rect.width / _matrix.fontSize);
+            _matrix.drops = new Array(_matrix.columns).fill(0).map(() => Math.random() * rect.height);
+        }
+        _matrix.canvas = c; _matrix.ctx = ctx; _matrix.running = true; _matrix.resizeHandler = resize;
+        resize();
+
+        const chars = ['0','1'];
+        function draw() {
+            const rect = hero.getBoundingClientRect();
+            // translucent bg to create trail (lower alpha so hero text remains visible)
+            ctx.fillStyle = 'rgba(0, 8, 4, 0.06)';
+            ctx.fillRect(0, 0, rect.width, rect.height);
+            ctx.font = `${_matrix.fontSize}px Fira Code, monospace`;
+            for (let i = 0; i < _matrix.columns; i++) {
+                const x = i * _matrix.fontSize;
+                let y = _matrix.drops[i];
+                const text = chars[Math.random() > 0.5 ? 0 : 1];
+                // brighter head (more transparent so it doesn't overpower text)
+                ctx.fillStyle = 'rgba(124,252,0,0.25)';
+                ctx.fillText(text, x + 2, y);
+                // tail effect is by translucent fillRect above
+                _matrix.drops[i] = y > rect.height ? (Math.random() > 0.975 ? 0 : y - rect.height * 0.98) : y + _matrix.fontSize * (1 + Math.random()*0.8);
+            }
+            _matrix.rafId = requestAnimationFrame(draw);
+        }
+        window.addEventListener('resize', resize);
+        _matrix.rafId = requestAnimationFrame(draw);
+        _matrix.resizeHandler = () => resize();
+        window.addEventListener('resize', _matrix.resizeHandler);
+    }
+
+    function stopMatrixRain() {
+        if (!_matrix.running) return;
+        if (_matrix.rafId) cancelAnimationFrame(_matrix.rafId);
+        if (_matrix.canvas && _matrix.canvas.parentNode) _matrix.canvas.parentNode.removeChild(_matrix.canvas);
+        window.removeEventListener('resize', _matrix.resizeHandler);
+        _matrix.canvas = null; _matrix.ctx = null; _matrix.rafId = null; _matrix.drops = []; _matrix.running = false; _matrix.resizeHandler = null;
+    }
+
+    function typeHeroTitle(lang) {
+        // animate hero h1 typing for selected language
+        const containerId = lang === 'es' ? 'hero-text-es' : 'hero-text-en';
+        const container = document.getElementById(containerId);
+        if (!container) return;
+        const h1 = container.querySelector('h1');
+        if (!h1) return;
+        // store original if not stored
+        if (!_typing.original.title.es) {
+            const he = document.getElementById('hero-text-es')?.querySelector('h1');
+            _typing.original.title.es = he ? he.textContent.trim() : '';
+        }
+        if (!_typing.original.title.en) {
+            const hen = document.getElementById('hero-text-en')?.querySelector('h1');
+            _typing.original.title.en = hen ? hen.textContent.trim() : '';
+        }
+        const full = _typing.original.title[lang] || h1.textContent.trim();
+        let i = 0;
+        // clear existing title interval
+        if (_typing.titleIntervalId) { clearInterval(_typing.titleIntervalId); _typing.titleIntervalId = null; }
+        h1.textContent = '';
+        _typing.titleIntervalId = setInterval(() => {
+            i++;
+            h1.textContent = full.slice(0, i);
+            if (i >= full.length) { clearInterval(_typing.titleIntervalId); _typing.titleIntervalId = null; }
+        }, 190);
+    }
+
+    // subtitle typing removed per request
+
+    function stopTyping() {
+        if (_typing.titleIntervalId) { clearInterval(_typing.titleIntervalId); _typing.titleIntervalId = null; }
+        // restore originals for title
+        const he = document.getElementById('hero-text-es')?.querySelector('h1');
+        const hen = document.getElementById('hero-text-en')?.querySelector('h1');
+        if (he && _typing.original.title.es) he.textContent = _typing.original.title.es;
+        if (hen && _typing.original.title.en) hen.textContent = _typing.original.title.en;
+    }
+
+    // apply theme helper (also starts/stops matrix & typing)
+    function applyTheme(theme) {
+        if (!theme || theme === 'default') theme = 'default';
+        document.body.classList.remove('handwritten', 'tech');
+        if (theme !== 'default') document.body.classList.add(theme);
+        try { localStorage.setItem('preferredTheme', theme); } catch(e) {}
+        // manage runtime effects
+        if (theme === 'tech') {
+            startMatrixRain();
+            typeHeroTitle(currentLang);
+        } else {
+            stopMatrixRain();
+            stopTyping();
+        }
+        // update UI selected state if buttons exist
+        const btnDefault = document.getElementById('theme-default');
+        const btnHand = document.getElementById('theme-handwritten');
+        const btnTech = document.getElementById('theme-tech');
+        if (btnDefault) btnDefault.classList.toggle('selected', theme === 'default');
+        if (btnHand) btnHand.classList.toggle('selected', theme === 'handwritten');
+        if (btnTech) btnTech.classList.toggle('selected', theme === 'tech');
+    }
+
+    // Theme pickers and photo toolbar removed per user request.
 
     // Renderizar contenido según el idioma
     // `animate` controla si se aplica el efecto "glitch"; por defecto false.
@@ -611,16 +758,25 @@ document.addEventListener('DOMContentLoaded', () => {
     langEsBtn.addEventListener('click', () => {
         if (currentLang !== 'es') {
             currentLang = 'es';
+            try { localStorage.setItem('preferredLang', 'es'); } catch (e) {}
             // activar glitch solo cuando el usuario cambia el idioma
             renderContent(currentLang, true);
+            // if tech theme active, trigger typing animation for title only
+            if (document.body.classList.contains('tech')) {
+                typeHeroTitle(currentLang);
+            }
         }
     });
 
     langEnBtn.addEventListener('click', () => {
         if (currentLang !== 'en') {
             currentLang = 'en';
+            try { localStorage.setItem('preferredLang', 'en'); } catch (e) {}
             // activar glitch solo cuando el usuario cambia el idioma
             renderContent(currentLang, true);
+            if (document.body.classList.contains('tech')) {
+                typeHeroTitle(currentLang);
+            }
         }
     });
 
@@ -719,6 +875,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         // Update contact links after partial is loaded
                         renderContactLinks();
                         renderPersonalContactLinks();
+                        // theme controls removed (no-op)
                         // ensure layout is ready then add visible to trigger transition
                         requestAnimationFrame(() => {
                             injected.classList.add('visible');
@@ -763,6 +920,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Update contact links after partial is loaded
                 renderContactLinks();
                 renderPersonalContactLinks();
+                // theme controls removed (no-op)
                 // show overlay and injected content immediately (no artificial delay)
                 if (contentRoot) contentRoot.classList.add('visible-overlay');
                 injected.classList.add('visible');
@@ -932,6 +1090,41 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
     // Carga inicial
-    loadDataAndRender();
+    loadDataAndRender().then(() => {
+        // Determine theme to apply:
+        // 1) If user has explicit preference in localStorage, honor it.
+        // 2) Else if data.theme === 'random', pick a theme for this session (sessionStorage) and use it.
+        // 3) Else use data.theme or default.
+        let themeToApply = 'default';
+        try {
+            const stored = localStorage.getItem('preferredTheme');
+            if (stored) {
+                themeToApply = stored;
+            } else if (data && data.theme === 'random') {
+                // session-specific random choice
+                const sessionStored = (() => { try { return sessionStorage.getItem('preferredThemeSession'); } catch (e) { return null; } })();
+                if (sessionStored) {
+                    themeToApply = sessionStored;
+                } else {
+                    const choices = ['default', 'handwritten', 'tech'];
+                    const pick = choices[Math.floor(Math.random() * choices.length)];
+                    try { sessionStorage.setItem('preferredThemeSession', pick); } catch (e) {}
+                    themeToApply = pick;
+                }
+            } else if (data && data.theme) {
+                themeToApply = data.theme;
+            }
+        } catch (e) { /* ignore and fall back to default */ }
+        applyTheme(themeToApply);
+
+        // wire theme buttons
+        const themeDefaultBtn = document.getElementById('theme-default');
+        const themeHandBtn = document.getElementById('theme-handwritten');
+        const themeTechBtn = document.getElementById('theme-tech');
+        if (themeDefaultBtn) themeDefaultBtn.addEventListener('click', () => applyTheme('default'));
+        if (themeHandBtn) themeHandBtn.addEventListener('click', () => applyTheme('handwritten'));
+        if (themeTechBtn) themeTechBtn.addEventListener('click', () => applyTheme('tech'));
+        // Theme toolbar removed; hero photo click not used for theme selection.
+    });
 });
 

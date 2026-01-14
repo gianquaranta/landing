@@ -179,5 +179,5 @@
     "default_language": "es",
     "sections_order": ["informacion", "experiencia", "proyectos", "descarga", "contacto"],
     "hero_photo": "logo.png",
-    "theme": "default"
+    "theme": "random"
 }

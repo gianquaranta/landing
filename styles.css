@@ -614,6 +614,7 @@ body.collapsed .hero-social { display: none !important; }
     background: rgba(230,238,248,0.35);
     border-radius: 10px;
   }
+
   body::-webkit-scrollbar-thumb:hover,
   #content-root::-webkit-scrollbar-thumb:hover,
   .content-section::-webkit-scrollbar-thumb:hover {

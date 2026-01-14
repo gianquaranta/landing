@@ -1,0 +1,174 @@
+/* Tech / Matrix theme
+   Activates when <body> has class 'tech'
+   - Monospace code font
+   - Neon green text and accents
+   - Subtle 'matrix' vertical scanlines animation
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap');
+
+:root {
+  --tech-green: #7CFC00; /* bright green */
+  --tech-green-soft: rgba(124,252,0,0.12);
+  --tech-bg-top: #00140b;
+  --tech-bg-bottom: #001b13;
+}
+
+/* Base tech theme */
+body.tech {
+  font-family: 'Fira Code', monospace;
+  color: var(--tech-green);
+}
+
+/* Hero background: dark with subtle vertical scanlines to evoke terminal */
+body.tech #inicio {
+  background: linear-gradient(180deg, var(--tech-bg-top) 0%, var(--tech-bg-bottom) 100%);
+  color: var(--tech-green);
+}
+
+/* matrix-like faint vertical lines */
+body.tech #inicio::before {
+  content: '';
+  position: absolute;
+  inset: -20%;
+  background-image: repeating-linear-gradient(90deg, rgba(0,0,0,0) 0 6px, rgba(0,64,0,0.03) 6px 7px);
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  animation: scan 12s linear infinite;
+  opacity: 0.9;
+}
+
+/* Subtle repeating binary (0/1) layer using inline SVG as repeated background to evoke code rain */
+/* We render an animated Matrix/binary rain using a canvas created by JS.
+   Keep a dark, neon-tinged hero background and ensure the canvas will sit above it. */
+body.tech #inicio {
+  position: relative; /* canvas will be absolutely positioned inside */
+}
+
+/* ensure any pseudo-layer doesn't compete visually */
+body.tech #inicio::after { display: none !important; }
+
+/* Ensure hero content sits above the matrix canvas */
+body.tech #inicio .hero-text,
+body.tech #hero-photo-wrapper {
+  position: relative;
+  z-index: 10;
+}
+
+/* Hero social should remain centered at the bottom (like original layout) */
+body.tech #inicio .hero-social {
+  position: absolute;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 16px);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  z-index: 10;
+}
+
+/* Ensure hero nav buttons are visible above canvas */
+body.tech #inicio .hero-nav {
+  position: relative;
+  z-index: 10;
+}
+
+/* Canvas layer sits behind content but above background */
+.matrix-canvas {
+  z-index: 1 !important;
+}
+
+@keyframes scan {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(4%); }
+  100% { transform: translateX(0); }
+}
+
+/* Hero text and headings in neon green */
+body.tech #inicio .hero-text h1,
+body.tech #inicio .hero-text p,
+body.tech .content-section h1,
+body.tech .content-section p { color: var(--tech-green); }
+
+/* Hero H1: keep inline-block and position relative so caret can be absolute (doesn't shift layout) */
+body.tech #inicio .hero-text h1 {
+  position: relative;
+  display: inline-block;
+}
+
+/* Add a blinking caret positioned absolutely so it doesn't affect text flow */
+body.tech #inicio .hero-text h1::after {
+  content: '|';
+  position: absolute;
+  left: 100%;
+  top: 0;
+  margin-left: 6px;
+  color: var(--tech-green);
+  opacity: 0.95;
+  animation: tech-caret 1s steps(1) infinite;
+}
+@keyframes tech-caret { 50% { opacity: 0; } }
+
+/* Nav and buttons styling for tech theme */
+body.tech .nav-button {
+  color: var(--tech-green);
+}
+body.tech .nav-button::after { background-color: var(--tech-green); }
+body.tech .nav-button.selected::after { background-color: var(--tech-green); }
+
+/* Content section backgrounds when overlaying */
+body.tech.collapsed #content-root,
+body.tech.collapsed .content-section {
+  background: rgba(0,0,0,0.6) !important;
+  color: var(--tech-green) !important;
+}
+
+/* Make cards darker and edged */
+body.tech .bg-white,
+body.tech .bg-card {
+  background: rgba(0,0,0,0.55) !important;
+  border: 1px solid rgba(124,252,0,0.08) !important;
+  color: var(--tech-green) !important;
+}
+
+/* Project tech chips: invert to neon */
+body.tech .tech-chip {
+  border: 1px solid rgba(124,252,0,0.12);
+  color: var(--tech-green);
+}
+
+/* Links with subtle glow */
+body.tech a { color: var(--tech-green); text-shadow: 0 0 6px rgba(124,252,0,0.12); }
+
+/* Download modal tweaks for tech */
+body.tech .download-modal .download-card {
+  background: linear-gradient(180deg, rgba(0,0,0,0.75), rgba(0,0,0,0.85));
+  border: 1px solid rgba(124,252,0,0.08);
+}
+
+/* make scrollbars subtle neon */
+body.tech::-webkit-scrollbar-thumb { background: rgba(124,252,0,0.18); }
+
+/* Make smaller UI elements more code-like */
+body.tech .skill-chip,
+body.tech .title-chip,
+body.tech .tech-chip,
+body.tech .nav-button {
+  font-family: 'Fira Code', monospace !important;
+}
+
+/* Slight glow for primary elements to feel neon */
+body.tech .nav-button.selected,
+body.tech .project-link,
+body.tech .cv-button {
+  text-shadow: 0 0 8px rgba(124,252,0,0.12);
+}
+
+/* Slight emphasis on hero social icons */
+body.tech .hero-social a { color: var(--tech-green); opacity: 0.95; }
+
+/* When not collapsed, keep content-section cards slightly translucent */
+body.tech .content-section { color: var(--tech-green); }
+
+/* Ensure inputs have dark background */
+body.tech input, body.tech textarea, body.tech select { background: rgba(0,0,0,0.6) !important; color: var(--tech-green) !important; border: 1px solid rgba(124,252,0,0.06) !important; }

@@ -621,3 +621,91 @@ body.collapsed .hero-social { display: none !important; }
     background: rgba(230,238,248,0.55);
   }
 }
+
+/* Theme Switcher Buttons */
+#theme-switcher {
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  z-index: 900 !important;
+}
+
+@media (min-width: 1024px) {
+  #theme-switcher {
+    flex-direction: row;
+  }
+}
+
+.theme-button {
+  padding: 0px !important;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.theme-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.theme-button.selected {
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.6), 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Default Theme Button - Gradient */
+.theme-button.theme-default {
+  background: linear-gradient(135deg, #0C8296 0%, #3C9696 50%, #1296A0 100%);
+}
+
+.theme-button.theme-default.selected::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.9);
+}
+
+/* Handwritten Theme Button - Pencil/Sketch style */
+.theme-button.theme-handwritten {
+  background-color: #f5f1e8;
+  border: 2px dashed #8B7355;
+  position: relative;
+  background-image: 
+    linear-gradient(45deg, rgba(139, 115, 85, 0.15) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(139, 115, 85, 0.15) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, rgba(139, 115, 85, 0.15) 75%),
+    linear-gradient(-45deg, transparent 75%, rgba(139, 115, 85, 0.15) 75%);
+  background-size: 8px 8px;
+  background-position: 0 0, 0 4px, 4px -4px, -4px 0px;
+}
+
+.theme-button.theme-handwritten.selected::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid #8B7355;
+}
+
+/* Tech Theme Button - Half black, half green */
+.theme-button.theme-tech {
+  background: linear-gradient(90deg, #000000 0%, #000000 50%, #7CFC00 50%, #7CFC00 100%);
+}
+
+.theme-button.theme-tech.selected::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 3px solid rgba(124, 252, 0, 0.8);
+  box-shadow: inset 0 0 10px rgba(124, 252, 0, 0.3);
+}

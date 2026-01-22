@@ -96,7 +96,7 @@ body {
   background: transparent;
   color: var(--text-main); /* very light gray */
   font-weight: 600;
-  padding: 0.25rem 0.5rem;
+  padding: 0.15rem 0.3rem;
   position: relative;
   transition: transform 0.15s ease, color 0.15s ease;
   text-decoration: none;

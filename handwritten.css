@@ -112,7 +112,7 @@ body.handwritten button {
   color: var(--pencil-ink);
   box-shadow: 0 4px 10px rgba(0,0,0,0.03);
   font-size: 20px; /* larger button text to match handwriting style */
-  padding: 0.6rem 1rem;
+  padding: 0.25rem 0.5rem;
   transition: transform 0.2s ease, border-color 0.2s ease;
 }
 

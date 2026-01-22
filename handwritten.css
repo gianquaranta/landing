@@ -365,7 +365,7 @@ body.handwritten .download-modal .cv-close:hover {
 
 /* Increase subtitle font-size in hero for handwritten mode */
 body.handwritten #inicio .hero-text p {
-  font-size: 28px !important;
+  font-size: 20px !important;
 }
 
 /* Minimal scrollbar on large screens (handwritten theme) */
